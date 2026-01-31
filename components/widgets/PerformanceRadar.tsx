@@ -80,12 +80,12 @@ const PerformanceRadar = () => {
   };
 
   return (
-    <div >
+    <div className='mt-[20px]' >
       <Chart
         options={options}
         series={series}
         type="radar"
-        height={400}
+        height={300}
       />
     </div>
   );

@@ -48,7 +48,7 @@ export const Sidebar = ({ isOpen, setIsOpen }: SidebarProps) => {
       )}
 
       <aside
-        className={`fixed flex flex-col justify-between top-0 left-0 bottom-0 z-40 w-[262px] bg-[#081617] transition-transform duration-300 lg:relative lg:translate-x-0 ${
+        className={`fixed flex flex-col justify-between h-[100vh]  z-40 w-[262px] bg-[#081617] transition-transform duration-300  lg:translate-x-0 ${
           isOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >

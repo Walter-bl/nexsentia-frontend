@@ -24,7 +24,7 @@ const PerformanceDim = () => {
       <PerformanceRadar />
 
       {/* Divider */}
-      <div className="h-[1px]   bg-slate-800 w-full mb-8" />
+      <div className="h-[1px]   bg-[#1A2A2A] w-full mb-8" />
 
       {/* Stats Grid - Tailwind CSS */}
       <div className="grid  grid-cols-2 md:grid-cols-3 gap-y-8 gap-x-4 text-center">

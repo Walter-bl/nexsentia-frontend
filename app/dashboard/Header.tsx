@@ -9,7 +9,7 @@ interface HeaderProps {
 
 export const Header = ({ setSidebarOpen }: HeaderProps) => {
   return (
-    <header className="flex h-[64px] items-center justify-between px-4 lg:px-6 ">
+<header className="fixed z-20 bg-[#070F12] flex h-[64px] w-full lg:w-[calc(100%-262px)] items-center justify-between px-4 lg:px-6">
       <div className="flex items-center gap-3">
         {/* Mobile menu button */}
         <button

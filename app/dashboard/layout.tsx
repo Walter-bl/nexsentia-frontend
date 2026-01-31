@@ -14,10 +14,10 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
       <Sidebar isOpen={sidebarOpen} setIsOpen={setSidebarOpen} />
 
       {/* Main area */}
-      <div className="flex w-full flex-1 flex-col ">
+      <div className="flex w-full flex-1 flex-col lg:ml-[262px] ">
         <Header setSidebarOpen={setSidebarOpen} />
 
-        <main className="flex-1 w-full  p-4 lg:p-6">{children}</main>
+        <main className="flex-1 w-full  p-4 lg:p-6 mt-[62px]">{children}</main>
       </div>
       <GradientButton/>
     </div>

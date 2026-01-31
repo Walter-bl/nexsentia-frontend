@@ -50,9 +50,9 @@ export default function LoginPage() {
       {/* Left Content Section */}
       <div className="flex-1 max-w-xl space-y-6">
         <div className="flex items-center gap-3 mb-[50px] ">
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-4">
             {LOGO}
-            <p className="hidden font-poppins text-[33.275px] font-[700] leading-[23px] text-[#EFF2FE] sm:block">
+            <p className=" font-poppins text-[33.275px] font-[700] leading-[23px] text-[#EFF2FE] sm:block">
               NexSentia
             </p>
           </div>
