@@ -112,7 +112,7 @@ Communication Efficiency                  </p>
           </Card>
         </div>
       </div>
-      <div className="grid grid-cols-1 gap-[25px] lg:grid-cols-3">
+      <div className="grid grid-cols-1 gap-[25px] md:grid-cols-2  xl:grid-cols-3">
         <PerformanceDim />
         <StrategicAlignmentCard />
         <Signals />

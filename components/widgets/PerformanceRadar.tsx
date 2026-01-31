@@ -40,13 +40,15 @@ const PerformanceRadar = () => {
     },
     xaxis: {
       categories: [
-        'Communication',
-        'Strategic Alignment',
-        'Team Cohesion',
-        'Incident Response',
-        'Documentation',
+        'Comm',
+        'Strat Align',
+        'Team Coh',
+        'Incident',
+        'Docs',
       ],
       labels: {
+            rotate: 0, // normal on large screens
+
         style: {
           colors: '#9ca3af',
           fontSize: '14px',
@@ -61,7 +63,7 @@ const PerformanceRadar = () => {
     },
     plotOptions: {
       radar: {
-        size: 145,
+        size: 120,
         polygons: {
           strokeColors: '#2d3748', 
           strokeWidth: '1',
