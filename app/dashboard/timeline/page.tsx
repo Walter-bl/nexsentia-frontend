@@ -9,6 +9,7 @@ import {
   CalendarDays,
 } from "lucide-react";
 import { Pill } from "@/components/ui/Pill";
+import PageHeader from "@/components/widgets/PageHeader";
 
 const events = [
   {
@@ -55,12 +56,10 @@ const Page = () => {
   return (
     <div className="min-h-screen p-8 text-gray-300 font-sans">
       {/* Header */}
-      <header className="mb-8">
-        <h1 className="text-3xl font-semibold text-white">Timeline</h1>
-        <p className="text-sm text-gray-500 mt-1">
-          AI-generated analysis and recommendations
-        </p>
-      </header>
+<PageHeader
+  title="Timeline"
+  description="AI-generated analysis and recommendations"
+/>
 
       {/* Filter Bar */}
       <div className="flex items-center gap-4 mb-10">

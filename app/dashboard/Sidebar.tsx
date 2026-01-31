@@ -23,7 +23,7 @@ export const Sidebar = ({ isOpen, setIsOpen }: SidebarProps) => {
   const navItems = [
     { label: "Pulse", icon: <Activity size={20} />, path: "/dashboard" },
     { label: "Timeline", icon: <Clock size={20} />, path: "/dashboard/timeline" },
-    { label: "Privacy & Data", icon: <Shield size={20} />, path: "/privacy" },
+    { label: "Privacy & Data", icon: <Shield size={20} />, path: "/dashboard/privacy" },
     { label: "Action Center", icon: <AlertCircle size={20} />, path: "/action" },
     { label: "ROI & Impact", icon: <TrendingUp size={20} />, path: "/roi" },
   ];
