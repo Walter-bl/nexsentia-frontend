@@ -54,7 +54,7 @@ const Page = () => {
   });
 
   return (
-    <div className="min-h-screen p-8 text-gray-300 font-sans">
+    <div className="min-h-screen md:p-6  text-gray-300">
       {/* Header */}
 <PageHeader
   title="Timeline"
