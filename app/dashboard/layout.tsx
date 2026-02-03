@@ -1,8 +1,8 @@
 "use client";
 
 import React, { useState } from "react";
-import { Sidebar } from "./Sidebar";
-import { Header } from "./Header";
+import { Sidebar } from "../../components/widgets/Sidebar";
+import { Header } from "../../components/widgets/Header";
 import { GradientButton } from "@/components/ui/GradientButton";
 import AclGuard from "@/components/widgets/AclGuard";
 

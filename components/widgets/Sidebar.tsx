@@ -11,7 +11,9 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
+import { Drawer } from "./Drawer";
+import UserProfile from "./UserProfileI";
 
 interface SidebarProps {
   isOpen: boolean;
@@ -19,6 +21,8 @@ interface SidebarProps {
 }
 
 export const Sidebar = ({ isOpen, setIsOpen }: SidebarProps) => {
+    const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  
   const pathname = usePathname();
   const {user}=useAuth()
 
@@ -100,7 +104,7 @@ export const Sidebar = ({ isOpen, setIsOpen }: SidebarProps) => {
 
         {/* Logout */}
         <div className="pt-6 border-t border-white/10 p-6">
-          <a className="flex items-center gap-3 px-4 py-3 text-gray-300 hover:bg-white/5 hover:text-white rounded-lg transition-colors group">
+          <div   onClick={() => setIsDrawerOpen(true)} className="flex cursor-pointer items-center gap-3 px-4 py-3 text-gray-300 hover:bg-white/5 hover:text-white rounded-lg transition-colors group">
             <div
               className="
     flex h-[33.97px] w-[33.97px] uppercase items-center justify-center
@@ -121,9 +125,17 @@ export const Sidebar = ({ isOpen, setIsOpen }: SidebarProps) => {
               </span>
               <p className="text-[#5D7079] font-700 text-[11.37px]">  {user?.role}</p>
             </div>
-          </a>
+          </div>
         </div>
       </aside>
+         <Drawer
+              isOpen={isDrawerOpen}
+              onClose={() => setIsDrawerOpen(false)}
+              title="Setting"
+              // subtitle="Detailed explanation"
+            >
+              <UserProfile />
+            </Drawer>
     </>
   );
 };
