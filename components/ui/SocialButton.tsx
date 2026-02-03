@@ -17,7 +17,7 @@ const SocialButton = ({
     <button
       type="button"
       onClick={onClick}
-      className="flex flex-1 items-center justify-center gap-3 bg-[#0D2027] border-[1.2px] border-[#71858C] rounded-lg py-3 hover:bg-slate-800 transition-colors"
+      className="flex flex-1 cursor-pointer items-center justify-center gap-3 bg-[#0D2027] border-[1.2px] border-[#71858C] rounded-lg py-3 hover:bg-slate-800 transition-colors"
     >
       <Image src={icon} alt={provider} width={24} height={24} />
 

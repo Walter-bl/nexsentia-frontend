@@ -4,12 +4,15 @@ import React, { useState } from "react";
 import { Sidebar } from "./Sidebar";
 import { Header } from "./Header";
 import { GradientButton } from "@/components/ui/GradientButton";
+import AclGuard from "@/components/widgets/AclGuard";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
-    <div className="flex min-h-screen">
+
+     <AclGuard requiredPermissions={["reports.read"]}>
+        <div className="flex min-h-screen">
       {/* Sidebar */}
       <Sidebar isOpen={sidebarOpen} setIsOpen={setSidebarOpen} />
 
@@ -21,6 +24,8 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
       </div>
       <GradientButton/>
     </div>
+    </AclGuard>
+  
   );
 };
 

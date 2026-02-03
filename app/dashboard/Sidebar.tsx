@@ -1,5 +1,6 @@
 "use client";
 
+import { useAuth } from "@/context/AuthContext";
 import { LOGO } from "@/utils/icons";
 import {
   Shield,
@@ -19,6 +20,7 @@ interface SidebarProps {
 
 export const Sidebar = ({ isOpen, setIsOpen }: SidebarProps) => {
   const pathname = usePathname();
+  const {user}=useAuth()
 
   const navItems = [
     { label: "Pulse", icon: <Activity size={20} />, path: "/dashboard" },
@@ -101,21 +103,23 @@ export const Sidebar = ({ isOpen, setIsOpen }: SidebarProps) => {
           <a className="flex items-center gap-3 px-4 py-3 text-gray-300 hover:bg-white/5 hover:text-white rounded-lg transition-colors group">
             <div
               className="
-    flex h-[33.97px] w-[33.97px] items-center justify-center
+    flex h-[33.97px] w-[33.97px] uppercase items-center justify-center
     rounded-[18.0728px]
     bg-[linear-gradient(145.58deg,_#0BB995_15.09%,_#0AB9C7_84.4%)]
     font-poppins text-[13.5714px] font-semibold
     leading-[20px] text-[#EFF2FE]
   "
             >
-              JD
+              
+               {user?.email.at(0)}
+
             </div>
 
             <div className="flex flex-col gap-1">
               <span className="text-[13.57px] font-600 text-[#EFF2FE]">
-                John Doe
+                {user?.email}
               </span>
-              <p className="text-[#5D7079] font-700 text-[11.37px]">CEO</p>
+              <p className="text-[#5D7079] font-700 text-[11.37px]">  {user?.role}</p>
             </div>
           </a>
         </div>
