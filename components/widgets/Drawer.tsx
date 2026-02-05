@@ -30,7 +30,6 @@ export const Drawer: React.FC<DrawerProps> = ({
         onClick={onClose}
       />
 
-      {/* Drawer panel */}
       <div
         className={`fixed right-0 top-0 h-full w-full bg-[#0A1A1A] text-gray-200 p-8 shadow-2xl z-[70] transform transition-transform duration-500 ease-in-out overflow-y-auto ${
           isOpen ? "translate-x-0" : "translate-x-full"
@@ -53,7 +52,7 @@ export const Drawer: React.FC<DrawerProps> = ({
           </div>
         )}
 
-        {/* Drawer content */}
+     
         <div>{children}</div>
       </div>
     </>

@@ -80,8 +80,8 @@ export const StrategicAlignmentCard = () => {
   return (
       <Card>
         <CardHeader
-          label="Strategic Alignment"
-          text="Escalations to management"
+          label=" Recent Signals "
+          text=" AI-detected organizational patterns "
           icon={STRAIG_ALIGN}
         />
 

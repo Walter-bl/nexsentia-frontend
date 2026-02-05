@@ -28,15 +28,15 @@ export const Header = ({ setSidebarOpen }: HeaderProps) => {
           <Menu className="h-5 w-5 text-[#EFF2FE]" />
         </button>
 
-        {isDashboardRoot && (
+        {/* {isDashboardRoot && (
           <h2 className="hidden text-sm font-semibold text-[#EFF2FE] sm:block">
             Organizational Pulse
           </h2>
-        )}
+        )} */}
       </div>
 
       {/* Right side */}
-      <div className="flex w-full items-center justify-end gap-2 sm:gap-4">
+      <div className="flex  items-center justify-end gap-2 sm:gap-4">
         {isDashboardRoot && (
           <TimeFilter value={filter} onChange={(v) => setFilter(v)} />
         )}

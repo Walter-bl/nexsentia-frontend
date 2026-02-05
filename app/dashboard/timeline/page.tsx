@@ -1,6 +1,6 @@
 "use client"; // Required for useState in Next.js App Router
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Filter,
   AlertTriangle,
@@ -11,6 +11,7 @@ import {
 import { Pill } from "@/components/ui/Pill";
 import PageHeader from "@/components/widgets/PageHeader";
 import { ImpactFilter } from "./ImpactFilter";
+import { TimelineItem, timelineService } from "@/services/timeline";
 type FilterType = "All" | "High Impact" | "Medium Impact" | "Low Impact";
 
 
@@ -55,6 +56,28 @@ const [activeFilter, setActiveFilter] = useState<FilterType>("All");
     if (activeFilter === "All") return true;
     return event.impact === activeFilter;
   });
+
+
+  const [loading, setLoading] = useState(true);
+  const [timeline, setTimeline] = useState<TimelineItem[]>([]);
+  const [page, setPage] = useState(1);
+  const limit = 10;
+
+  useEffect(() => {
+    const fetchTimeline = async () => {
+      setLoading(true);
+      try {
+        const res = await timelineService.getTimeline(page, limit);
+        setTimeline(res.items);
+      } catch (err) {
+        console.error("Failed to load timeline", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchTimeline();
+  }, [page, limit]);
 
   return (
     <div className="min-h-screen md:p-6  text-gray-300">

@@ -16,8 +16,8 @@ const PerformanceDim = () => {
   return (
     <Card>
       <CardHeader
-        label="Strategic Alignment"
-        text="AI-detected organizational patterns"
+        label=" PERFORMANCE DIMENSIONS "
+        text=" Multi-axis organizational view "
         icon={SIGNAL}
       />
 

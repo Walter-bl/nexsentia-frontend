@@ -2,6 +2,8 @@ import { OverlapSlider } from "../ui/OverlapSlider";
 import { Card } from "../ui/Card";
 import { CardHeader } from "./CardHeader";
 import { SIGNAL } from "@/utils/icons";
+import { useEffect, useState } from "react";
+import { SignalApiItem, SIGNALS } from "@/services/dashboard";
 
 type SignalItem = {
   title: string;
@@ -50,11 +52,32 @@ const SIGNALS_DATA: SignalItem[] = [
 ];
 
 const Signals = () => {
+
+
+
+   const [signals, setSignals] = useState<SignalApiItem[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setLoading(true);
+    SIGNALS
+      .metrics({ category : "incident_management", isActive : true, timeRange:'1m' })
+      .then((res) => setSignals(res))
+      .catch((err) => {
+        console.error("Failed to fetch signals:", err);
+        setSignals([]);
+      })
+      .finally(() => setLoading(false));
+  }, []);
+
+
+
+
   return (
     <Card>
       <CardHeader
-        label="Strategic Alignment"
-        text="AI-detected organizational patterns"
+        label="Signal Distribution by theme"
+        text="Catagorized organizational signals"
         icon={SIGNAL}
       />
 

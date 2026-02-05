@@ -1,46 +1,81 @@
-type Props = {
-  data: number[];
-  labels: string[]; // X-axis labels (e.g., months)
-  maxValue?: number; // max Y-axis value (optional)
-};
+"use client";
 
-export const BarChart = ({ data, labels, maxValue }: Props) => {
-  const max = maxValue || Math.max(...data, 100); // max value for scaling
+import dynamic from "next/dynamic";
+import { CardHeader } from "@/components/widgets/CardHeader";
+import { ALERT_ICON } from "@/utils/icons";
+
+const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
+
+export interface BusinessEscalationItem {
+  month: string; // e.g., "2026-01"
+  count: number;
+  totalLoss?: number;
+  bySeverity?: {
+    critical?: number;
+    high?: number;
+    medium?: number;
+    low?: number;
+  };
+}
+
+interface BarChartProps {
+  chartData: BusinessEscalationItem[];
+
+}
+
+export default function BarChart({ chartData }: BarChartProps) {
+  // Convert month string "YYYY-MM" to readable month like "Jan"
+  const monthLabels = chartData.map((item) => {
+    const date = new Date(item.month + "-01"); // append day to parse
+    return date.toLocaleString("default", { month: "short" });
+  });
+
+  const series = [
+    {
+      name: "Total Escalations",
+      data: chartData.map((item) => item.count),
+    },
+  ];
+
+  const options: any = {
+    chart: {
+      type: "bar",
+      toolbar: { show: false },
+      background: "transparent",
+    },
+    plotOptions: {
+      bar: {
+        borderRadius: 4,
+        borderRadiusApplication: "top",
+        columnWidth: "40%",
+        distributed: true,
+      },
+    },
+    dataLabels: { enabled: false },
+    colors: chartData.map((item) => (item.count > 0 ? "#F99D0F" : "#20393D")),
+    xaxis: {
+      categories: monthLabels,
+      axisBorder: { show: false },
+      axisTicks: { show: false },
+      labels: { style: { colors: "#71858C" } },
+    },
+    yaxis: {
+      min: 0,
+      tickAmount: 5,
+      labels: { style: { colors: "#71858C" } },
+    },
+    grid: { show: false },
+    tooltip: { theme: "dark" },
+    legend: { show: false },
+  };
 
   return (
-    <div className="flex w-full items-end gap-3">
-      {/* Y-axis labels */}
-      <div className="flex flex-col justify-between h-32 mr-2 text-xs text-gray-400">
-        {Array.from({ length: 5 }, (_, i) => {
-          const val = Math.round((max / 4) * (4 - i));
-          return <div key={i}>{val}</div>;
-        })}
-      </div>
+    <>
+    
 
-      {/* Chart area */}
-      <div className="flex-1 flex flex-col">
-        {/* Bars */}
-        <div className="flex justify-between items-end h-32 ">
-          {data.map((value, index) => (
-            <div
-              key={index}
-              className={` w-[20px] rounded-t-md ${
-                index === data.length - 1 ? "bg-yellow-400" : "bg-[#1E3A40]"
-              }`}
-              style={{ height: `${(value / max) * 100}%` }}
-            />
-          ))}
-        </div>
+      <Chart options={options} series={series} type="bar" height={200} />
 
-        {/* X-axis labels */}
-        <div className="flex justify-between mt-2 text-xs text-gray-400">
-          {labels.map((label, index) => (
-            <span key={index}  className=" w-[20px] text-center">
-              {label}
-            </span>
-          ))}
-        </div>
-      </div>
-    </div>
+    
+    </>
   );
-};
+}
