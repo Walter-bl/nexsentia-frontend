@@ -12,6 +12,8 @@ import PerformanceDim from "@/components/widgets/PerformanceDim";
 import BarChart from "@/components/widgets/BarChart";
 import { useEffect, useState } from "react";
 import { kpiService, TimeRange } from "@/services/dashboard";
+import HealthCounts from "@/components/widgets/HealthCounts";
+import CategoryCardsSlider from "@/components/widgets/CategoryCardsSlider";
 
 export default function DashboardPage() {
   const [loading, setLoading] = useState(true);
@@ -55,118 +57,22 @@ export default function DashboardPage() {
             {loading ? (
               <div className="h-[120px] w-full bg-[#1A1A1A] rounded-full animate-pulse" />
             ) : (
-              <CircularScore score={data?.overallHealth?.score} />
+              <CircularScore overallHealth={data?.overallHealth} />
             )}
 
-            <div className="flex w-full mt-[30px] justify-center gap-3">
-              {[...Array(3)].map((_, i) => (
-                <div
-                  key={i}
-                  className="flex items-center justify-center flex-col"
-                >
-                  {loading ? (
-                    <div className="h-5 w-10 bg-[#1A1A1A] rounded animate-pulse mb-1" />
-                  ) : (
-                    <p className="font-500 text-[#EFF2FE] text-[20px]">70</p>
-                  )}
-                  {loading ? (
-                    <div className="h-3 w-12 bg-[#1A1A1A] rounded animate-pulse" />
-                  ) : (
-                    <p className="font-400 uppercase text-[#71858C] text-[12px]">
-                      {i === 0
-                        ? "PREVIOUS"
-                        : i === 1
-                          ? "TARGET"
-                          : "INDUSTRY AVG"}
-                    </p>
-                  )}
-                </div>
-              ))}
-            </div>
+            <HealthCounts
+              overallHealth={data?.overallHealth}
+              loading={loading}
+            />
           </div>
         </div>
 
         {/* KPI Cards */}
         <div className="lg:col-span-9 gap-[25px] md:grid-cols-2">
-          <div className="flex-col flex lg:flex-row justify-between gap-[25px] w-[100%]">
-            <Card className="h-[160px] w-full py-[20px]">
-              {loading ? (
-                <div className="h-full w-full bg-[#1A1A1A] rounded animate-pulse" />
-              ) : (
-                <>
-                  <CardHeader icon={STRAIG_ALIGN} label="Strategic Alignment" />
-                  <div className="flex mt-[30px] items-end justify-between">
-                    <div className="flex flex-col">
-                      <h3 className="text-[#EFF2FE] font-500 text-[28px]">
-                        84%
-                      </h3>
-                      <p className="text-[#71858C] font-400 text-[12px]">
-                        Team Alignment
-                      </p>
-                    </div>
-                    <Pill
-                      text={`+${data?.strategicAlignment?.overall}`}
-                      icon={<TrendingUp size={12} />}
-                      className="p-2"
-                      width=""
-                    />
-                  </div>
-                </>
-              )}
-            </Card>
-
-            <Card className="h-[160px] w-full py-[20px] mt-4 lg:mt-0">
-              {loading ? (
-                <div className="h-full w-full bg-[#1A1A1A] rounded animate-pulse" />
-              ) : (
-                <>
-                  <CardHeader
-                    icon={CHAT_ICON}
-                    label="Communication Efficiency"
-                  />
-                  <div className="flex mt-[30px] items-end justify-between">
-                    <div className="flex flex-col">
-                      <h3 className="text-[#EFF2FE] font-500 text-[28px]">
-                        {
-                          data?.strategicAlignment?.categories?.communication
-                            ?.metricsCount
-                        }
-                        %
-                      </h3>
-                      <p className="text-[#71858C] font-400 text-[12px]">
-                        vs last quarter
-                      </p>
-                    </div>
-                    <Pill
-                      text={`${data?.strategicAlignment?.categories?.communication?.trend === "down" ? "-" : "+"}${data?.strategicAlignment?.categories?.communication?.score ?? 0}`}
-                      icon={
-                        data?.strategicAlignment?.categories?.communication
-                          ?.trend === "down" ? (
-                          <TrendingDown size={12} />
-                        ) : (
-                          <TrendingUp size={12} />
-                        )
-                      }
-                      className="p-2"
-                      bgColor={
-                        data?.strategicAlignment?.categories?.communication
-                          ?.trend === "down"
-                          ? "rgba(250, 100, 100, 0.2)" // red for down
-                          : "rgba(70, 159, 136, 0.2)" // green for up
-                      }
-                      textColor={
-                        data?.strategicAlignment?.categories?.communication
-                          ?.trend === "down"
-                          ? "#FA6464" // darker red for text
-                          : "#469F88" // green for text
-                      }
-                      width=""
-                    />
-                  </div>
-                </>
-              )}
-            </Card>
-          </div>
+          <CategoryCardsSlider
+            categories={data?.strategicAlignment?.categories}
+            loading={loading}
+          />
 
           {/* Chart */}
           <Card className="w-full mt-[25px]">
@@ -181,7 +87,7 @@ export default function DashboardPage() {
                   bgColor="#252E28"
                 />
                 <BarChart chartData={data?.businessEscalations?.chartData} />
-                <div className="flex mt-[10px] py-[20px] justify-between border-t-[2px] border-[#1A2A2A]">
+                <div className="flex  py-[20px] justify-between border-t-[2px] border-[#1A2A2A]">
                   <p className="text-[12px] font-400 text-[#71858C]">
                     Total this quarter
                   </p>
@@ -196,16 +102,25 @@ export default function DashboardPage() {
       </div>
 
       {/* Bottom 3 Cards */}
-      <div className="grid grid-cols-1 gap-[25px] md:grid-cols-2 xl:grid-cols-3">
+      <div className="grid grid-cols-1 gap-[25px] lg:grid-cols-1 mb-[25px]">
         {loading ? (
           <>
             <div className="h-[250px] w-full bg-[#1A1A1A] rounded animate-pulse" />
+          </>
+        ) : (
+          <>
+            <PerformanceDim teamSignals={data?.teamSignals} />
+          </>
+        )}
+      </div>
+      <div className="grid grid-cols-1 gap-[25px] lg:grid-cols-2">
+        {loading ? (
+          <>
             <div className="h-[250px] w-full bg-[#1A1A1A] rounded animate-pulse" />
             <div className="h-[250px] w-full bg-[#1A1A1A] rounded animate-pulse" />
           </>
         ) : (
           <>
-            <PerformanceDim />
             <StrategicAlignmentCard />
             <Signals />
           </>

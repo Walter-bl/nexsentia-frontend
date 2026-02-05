@@ -1,8 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { CardHeader } from "@/components/widgets/CardHeader";
-import { ALERT_ICON } from "@/utils/icons";
+
 
 const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
 
@@ -47,7 +46,7 @@ export default function BarChart({ chartData }: BarChartProps) {
       bar: {
         borderRadius: 4,
         borderRadiusApplication: "top",
-        columnWidth: "40%",
+        columnWidth: "20%",
         distributed: true,
       },
     },
@@ -73,7 +72,7 @@ export default function BarChart({ chartData }: BarChartProps) {
     <>
     
 
-      <Chart options={options} series={series} type="bar" height={200} />
+      <Chart options={options} series={series} type="bar" height={250} />
 
     
     </>
