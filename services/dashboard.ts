@@ -1,6 +1,6 @@
 import { api } from "@/utils/api";
 
-export type TimeRange = "7d" | "1m" | "3m" | "6m" | "1y";
+export type TimeRange = "7d" |"14d" | "1m" | "3m" | "6m" | "1y";
 
 export interface OrganizationalPulseResponse {
   healthScore: number;

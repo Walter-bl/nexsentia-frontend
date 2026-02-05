@@ -4,20 +4,20 @@ import { useState } from "react";
 import { Menu } from "lucide-react";
 import { usePathname } from "next/navigation";
 
-import { TimeFilter, TimeFilterValue } from "./TimeFilter";
+import { TimeFilter } from "./TimeFilter";
 import { daysAgo } from "@/utils/helper";
+import { useAuth } from "@/context/AuthContext";
 
 interface HeaderProps {
-  setSidebarOpen: (val: boolean) => void;
+ filter:string, setFilter:Function
 }
 
-export const Header = ({ setSidebarOpen }: HeaderProps) => {
+export const Header = () => {
   const pathname = usePathname();
+  const {  setSidebarOpen, sidebarOpen,filter, setFilter}=useAuth()
   const isDashboardRoot = pathname === "/dashboard";
 
-  // ✅ missing state (this was causing errors)
-  const [filter, setFilter] = useState<TimeFilterValue>("30d");
-  console.log("filter ==", filter);
+
 
   return (
     <header className="fixed z-20 flex h-[64px] w-full items-center justify-between bg-[#070F12] px-4 lg:w-[calc(100%-262px)] lg:px-6">

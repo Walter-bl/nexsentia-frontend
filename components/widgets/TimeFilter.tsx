@@ -2,29 +2,24 @@
 
 import { useEffect, useRef, useState } from "react";
 import { ChevronDown } from "lucide-react";
+import { TimeRange } from "@/services/dashboard";
 
-export type TimeFilterValue =
-  | "7d"
-  | "30d"
-  | "90d"
-  | "this_month"
-  | "last_month"
-  | "this_year"
-  | "last_year";
 
-const OPTIONS: { label: string; value: TimeFilterValue }[] = [
+
+const OPTIONS: { label: string; value: TimeRange }[] = [
   { label: "Last 7 days", value: "7d" },
-  { label: "Last 30 days", value: "30d" },
-  { label: "Last 90 days", value: "90d" },
-  { label: "This month", value: "this_month" },
-  { label: "Last month", value: "last_month" },
-  { label: "This year", value: "this_year" },
-  { label: "Last year", value: "last_year" },
+  { label: "Last 14 days", value: "14d" },
+  { label: "Last 30 days", value: "1m" },
+   { label: "Last 3 months", value: "3m" },
+      { label: "Last 6 months", value: "6m" },
+
+
+  { label: "Last year", value: "1y" },
 ];
 
 type Props = {
-  value: TimeFilterValue;
-  onChange: (value: TimeFilterValue) => void;
+  value: TimeRange;
+  onChange: (value: TimeRange) => void;
 };
 
 export const TimeFilter = ({ value, onChange }: Props) => {

@@ -1,11 +1,13 @@
 "use client";
 
+
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { authService } from "@/services/authService";
 import { userService } from "@/services/userService";
 import { AuthContextType, AuthResponse, RegisterPayload, User } from "@/types/auth";
 import toast from "react-hot-toast";
 import { UerInfo } from "@/types/user";
+import { TimeRange } from "@/services/dashboard";
 
 
 
@@ -15,8 +17,11 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<UerInfo | null>(null);
   const [accessToken, setAccessToken] = useState<string | null>(null);
   const [refreshToken, setRefreshToken] = useState<string | null>(null);
+    const [sidebarOpen, setSidebarOpen] = useState(false);
+const [filter, setFilter] = useState<TimeRange>("7d");
   const [loading, setLoading] = useState(true);
-console.log('user =======',user)
+
+  
   // Load tokens from localStorage on mount
   useEffect(() => {
     const storedAccessToken = localStorage.getItem("accessToken");
@@ -128,6 +133,8 @@ const login = async (data: { email: string; password: string }) => {
         login,
         logout,
         fetchUser,
+        setSidebarOpen, sidebarOpen,
+        filter, setFilter
       }}
     >
       {children}

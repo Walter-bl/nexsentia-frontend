@@ -1,3 +1,4 @@
+import { TimeRange } from "@/services/dashboard";
 import { UerInfo } from "./user";
 
 export interface RegisterPayload {
@@ -35,4 +36,6 @@ export interface AuthContextType {
   login: (data: { email: string; password: string }) => Promise<void>;
   logout: () => void;
   fetchUser: () => Promise<void>;
+  filter:TimeRange, setFilter:Function,
+  setSidebarOpen:any, sidebarOpen:boolean,
 }

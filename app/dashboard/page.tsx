@@ -14,31 +14,41 @@ import { useEffect, useState } from "react";
 import { kpiService, TimeRange } from "@/services/dashboard";
 import HealthCounts from "@/components/widgets/HealthCounts";
 import CategoryCardsSlider from "@/components/widgets/CategoryCardsSlider";
+import { Header } from "@/components/widgets/Header";
+import { useAuth } from "@/context/AuthContext";
 
 export default function DashboardPage() {
   const [loading, setLoading] = useState(true);
   const [timeRange, setTimeRange] = useState<TimeRange>("1m");
   const [data, setData] = useState<any>(null);
+  
+  const {filter, setFilter}=useAuth()
+ 
 
-  console.log("data ====", data);
+ useEffect(() => {
+  let isInitialLoad = true;
 
-  useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true);
-      try {
-        const res = await kpiService.organizationalPulse(timeRange);
-        setData(res);
-      } catch (err) {
-        console.error("Failed to load KPI data", err);
-      } finally {
-        setLoading(false);
+  const fetchData = async () => {
+    try {
+      const res = await kpiService.organizationalPulse(filter);
+      setData(res);
+    } catch (err) {
+      console.error("Failed to load KPI data", err);
+    } finally {
+      if (isInitialLoad) {
+        setLoading(false); // only stop loading on first fetch
+        isInitialLoad = false;
       }
-    };
-    fetchData();
-  }, [timeRange]);
+    }
+  };
+
+  fetchData();
+}, [filter]);
+
 
   return (
     <>
+   
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-12 mb-[25px]">
         {/* Health Score */}
         <div className="lg:col-span-3">
