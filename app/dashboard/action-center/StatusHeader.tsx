@@ -9,7 +9,7 @@ const StatusHeader = () => {
   ];
 
   return (
-    <div className="w-full bg-[#020d0f] p-8 mt-[20px] mb-[15px]">
+    <div className="w-full  p-8 mt-[20px] mb-[15px]">
       <div className="flex flex-col md:flex-row items-start md:items-center justify-between max-w-6xl mx-auto gap-8 md:gap-4">
         {statuses.map((status) => (
           <div key={status.label} className="flex items-center gap-3">

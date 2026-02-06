@@ -1,32 +1,51 @@
+"use client";
+
 import React from "react";
-import { Shield, ShieldCheck } from "lucide-react";
+import { Shield } from "lucide-react";
 import { Card } from "@/components/ui/Card";
 
-const PrivacySection = () => {
-  // DRY: Centralized data for the metric cards
+interface PrivacyArchitecture {
+  anonymizationRate: number;
+  piiStored: number;
+  soc2Compliant: boolean;
+  gdprCompliant: boolean;
+  message: string;
+}
+
+interface PrivacySectionProps {
+  privacyArchitecture?: PrivacyArchitecture; // optional in case data isn't ready
+}
+
+const PrivacySection = ({ privacyArchitecture }: PrivacySectionProps) => {
+  // Fallback values if prop is undefined
+  const {
+    anonymizationRate = 0,
+    piiStored = 0,
+    soc2Compliant = false,
+    gdprCompliant = false,
+    message = "Your data is protected by enterprise-grade security measures",
+  } = privacyArchitecture || {};
+
+  // Dynamically populate metrics
   const metrics = [
-    { label: "Anonymized", value: "100%" },
-    { label: "PII Stored", value: "0" },
-    { label: "Compliant", value: "SOC2" },
-    { label: "Compliant", value: "GDPR" },
+    { label: "Anonymized", value: `${anonymizationRate}%` },
+    { label: "PII Stored", value: piiStored },
+    { label: "Compliant", value: soc2Compliant ? "SOC2 ✅" : "SOC2 ❌" },
+    { label: "Compliant", value: gdprCompliant ? "GDPR ✅" : "GDPR ❌" },
   ];
 
   return (
-    <Card className="p-8 xl:px-25">
+    <Card className="p-8 xl:px-15">
       {/* Header Section */}
       <div className="flex items-start gap-4 mb-10">
         <div className="p-2 bg-[#124337] rounded-lg">
           <Shield className="w-6 h-6 text-[#71858C]" />
         </div>
         <div>
-          <p className="text-[15px] uppercase font-600 text-[#EFF2FE]">
-            {" "}
+          <p className="text-[15px] uppercase font-semibold text-[#EFF2FE]">
             Privacy-First Architecture
           </p>
-          <p className="text-[12px] font-400 text-[#71858C]">
-            {" "}
-            Your data is protected by enterprise-grade security measures
-          </p>
+          <p className="text-[12px] font-normal text-[#71858C]">{message}</p>
         </div>
       </div>
 

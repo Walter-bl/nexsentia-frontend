@@ -21,6 +21,8 @@ export default function DashboardPage() {
   const [loading, setLoading] = useState(true);
   const [timeRange, setTimeRange] = useState<TimeRange>("1m");
   const [data, setData] = useState<any>(null);
+
+  console.log(' data ===', data?.recentSignals)
   
   const {filter, setFilter}=useAuth()
  
@@ -131,8 +133,9 @@ export default function DashboardPage() {
           </>
         ) : (
           <>
-            <StrategicAlignmentCard />
-            <Signals />
+            <StrategicAlignmentCard recentSignals={data?.recentSignals} />
+           <Signals signalDistribution={data?.signalDistribution} />
+
           </>
         )}
       </div>
