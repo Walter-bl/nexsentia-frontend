@@ -65,4 +65,9 @@ export const SIGNALS = {
 
     return api.get<SignalApiItem[]>(`/kpi/metrics${query}`);
   },
+  getSignalDetail: (signalId: string | number) =>
+    api.get<any>(`/kpi/dashboard/signals/${signalId}`),
 };
+
+
+

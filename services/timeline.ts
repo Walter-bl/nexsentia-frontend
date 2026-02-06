@@ -17,4 +17,6 @@ export const timelineService = {
     api.get<{ events: TimelineItem[]; total: number, totalPages:number }>(
       `/timeline?page=${page}&limit=${limit}`
     ),
+      getTimelineDetail: (eventId: string | number| null) =>
+    api.get<any>(`/timeline/${eventId}`),
 };

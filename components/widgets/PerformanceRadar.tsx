@@ -9,10 +9,12 @@ const Chart = dynamic(() => import("react-apexcharts"), {
   loading: () => <div style={{ height: 300, backgroundColor: "transparent" }} />,
 });
 
+// Type for a single team signal
 export interface Metric {
   key: string;
   name: string;
   value: number;
+  unit?: string;
   status: "critical" | "warning" | "good" | "excellent";
 }
 

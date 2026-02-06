@@ -22,7 +22,6 @@ export default function DashboardPage() {
   const [timeRange, setTimeRange] = useState<TimeRange>("1m");
   const [data, setData] = useState<any>(null);
 
-  console.log(' data ===', data?.recentSignals)
   
   const {filter, setFilter}=useAuth()
  
@@ -55,19 +54,19 @@ export default function DashboardPage() {
         {/* Health Score */}
         <div className="lg:col-span-3">
           <p
-            className={`mb-2 font-600 text-[20px] ${loading ? "bg-[#1A1A1A] h-6 w-3/4 rounded animate-pulse" : "text-[#EFF2FE]"}`}
+            className={`mb-2 font-600 text-[20px] ${loading ? "bg-gray-700 h-6 w-3/4 rounded animate-pulse" : "text-[#EFF2FE]"}`}
           >
             {!loading && "Organizational Pulse"}
           </p>
           <p
-            className={`text-[13px] ${loading ? "bg-[#1A1A1A] h-4 w-2/3 rounded animate-pulse" : "text-[#71858C]"}`}
+            className={`text-[13px] ${loading ? "bg-gray-700 h-4 w-2/3 rounded animate-pulse" : "text-[#71858C]"}`}
           >
             {!loading && "Real-time organizational health intelligence"}
           </p>
 
           <div className="mt-8">
             {loading ? (
-              <div className="h-[120px] w-full bg-[#1A1A1A] rounded-full animate-pulse" />
+              <div className="h-[120px] w-full bg-gray-700 rounded-full animate-pulse" />
             ) : (
               <CircularScore overallHealth={data?.overallHealth} />
             )}
@@ -89,7 +88,7 @@ export default function DashboardPage() {
           {/* Chart */}
           <Card className="w-full mt-[25px]">
             {loading ? (
-              <div className="h-[250px] w-full bg-[#1A1A1A] rounded animate-pulse" />
+              <div className="h-[250px] w-full bg-gray-700 rounded animate-pulse" />
             ) : (
               <>
                 <CardHeader
@@ -117,7 +116,7 @@ export default function DashboardPage() {
       <div className="grid grid-cols-1 gap-[25px] lg:grid-cols-1 mb-[25px]">
         {loading ? (
           <>
-            <div className="h-[250px] w-full bg-[#1A1A1A] rounded animate-pulse" />
+            <div className="h-[250px] w-full bg-gray-700 rounded animate-pulse" />
           </>
         ) : (
           <>
@@ -128,8 +127,8 @@ export default function DashboardPage() {
       <div className="grid grid-cols-1 gap-[25px] lg:grid-cols-2">
         {loading ? (
           <>
-            <div className="h-[250px] w-full bg-[#1A1A1A] rounded animate-pulse" />
-            <div className="h-[250px] w-full bg-[#1A1A1A] rounded animate-pulse" />
+            <div className="h-[250px] w-full bg-gray-700 rounded animate-pulse" />
+            <div className="h-[250px] w-full bg-gray-700 rounded animate-pulse" />
           </>
         ) : (
           <>

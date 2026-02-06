@@ -1,15 +1,23 @@
-import React from 'react';
-import { Clock } from 'lucide-react'; // Using Clock icon to match the design
+"use client";
 
-const StatusHeader = () => {
-  const statuses = [
-    { label: 'OPEN', count: 3, badgeColor: 'bg-[#B5B5B552] text-[#000000]' },
-    { label: 'IN PROGRESS', count: 2, badgeColor: 'bg-[#D3656782] text-[#000000]' },
-    { label: 'DONE', count: 1, badgeColor: 'bg-[#339A8082] text-[#000000]' },
-  ];
+import React from "react";
+import { Clock } from "lucide-react"; // Icon
 
+// Define the type for a single status
+export interface StatusItem {
+  label: string;
+  count: number;
+  badgeColor: string;
+}
+
+// Props for the StatusHeader component
+interface StatusHeaderProps {
+  statuses: StatusItem[];
+}
+
+const StatusHeader: React.FC<StatusHeaderProps> = ({ statuses }) => {
   return (
-    <div className="w-full  p-8 mt-[20px] mb-[15px]">
+    <div className="w-full p-8 mt-[20px] mb-[15px]">
       <div className="flex flex-col md:flex-row items-start md:items-center justify-between max-w-6xl mx-auto gap-8 md:gap-4">
         {statuses.map((status) => (
           <div key={status.label} className="flex items-center gap-3">
@@ -24,7 +32,9 @@ const StatusHeader = () => {
             </span>
 
             {/* Count Badge */}
-            <div className={`px-3 py-0.5 rounded-full text-[8.57px] font-bold min-w-[24px] flex justify-center items-center ${status.badgeColor}`}>
+            <div
+              className={`px-3 py-0.5 rounded-full text-[8.57px] font-bold min-w-[24px] flex justify-center items-center ${status.badgeColor}`}
+            >
               {status.count}
             </div>
           </div>
@@ -35,3 +45,4 @@ const StatusHeader = () => {
 };
 
 export default StatusHeader;
+

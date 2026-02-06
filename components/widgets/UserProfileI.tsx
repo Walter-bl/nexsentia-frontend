@@ -12,7 +12,7 @@ const UserProfile = () => {
     {
       name: 'ServiceNow',
       description: 'ServiceNow CSM',
-        logo: "/snow.png",
+        logo: "/servicenow.png",
       bgColor: 'bg-[#004e52]',
     },
     {
@@ -24,7 +24,7 @@ const UserProfile = () => {
     {
       name: 'Microsoft Teams',
       description: 'Collaboration Tool',
-        logo: "/mt.png",
+        logo: "/teams.png",
       bgColor: 'bg-white',
     },
   ];

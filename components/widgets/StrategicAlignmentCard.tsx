@@ -6,9 +6,13 @@ import {
   CircleCheckBig,
   Clock4,
 } from "lucide-react";
-import { ReactNode } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import { Card } from "../ui/Card";
 import { CardHeader } from "./CardHeader";
+import { api } from "@/utils/api";
+import { kpiService, SIGNALS } from "@/services/dashboard";
+import { Drawer } from "./Drawer";
+import IncidentDetailCard from "./SignalDetailCard";
 
 type SignalSeverity = "critical" | "high" | "medium" | "low";
 
@@ -28,6 +32,7 @@ type StrategicItemProps = {
   iconBg: string;
   title: string;
   subtitle: string;
+  id:string
 };
 
 /* 🔹 Reusable Item */
@@ -36,9 +41,15 @@ const StrategicItem = ({
   iconBg,
   title,
   subtitle,
+  id
 }: StrategicItemProps) => {
+  
+      const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+        const [signalId, setSignalId] = useState<string | null>(null);
+  
   return (
-    <div className="p-[10px] bg-[#0A1C24] rounded-[7px]">
+    <>
+  <div className="p-[10px] bg-[#0A1C24] rounded-[7px]">
       <div className="flex justify-between">
         <div className="flex gap-2">
           <div
@@ -56,10 +67,29 @@ const StrategicItem = ({
             </p>
           </div>
         </div>
+        <div className=" p-2 h-fit cursor-pointer" onClick={()=>{
+          setSignalId(id)
+          setIsDrawerOpen(true)
 
-        {RIGHT_ARROW}
+        }}>
+ {RIGHT_ARROW}
+        </div>
+
+       
       </div>
     </div>
+
+       <Drawer
+                  isOpen={isDrawerOpen}
+                  onClose={() => setIsDrawerOpen(false)}
+                  title="Recent Signals"
+                  // subtitle="Detailed explanation"
+                   maxWidth = "700px"
+                >
+                 <IncidentDetailCard signalId={signalId}/>
+                </Drawer>
+    </>
+  
   );
 };
 
@@ -68,11 +98,15 @@ type Props = {
   loading?: boolean;
 };
 
+const LOAD_STEP = 5;
+
 /* 🔹 Main Component */
 export const StrategicAlignmentCard = ({
   recentSignals = [],
   loading = false,
 }: Props) => {
+  const [visibleCount, setVisibleCount] = useState(LOAD_STEP);
+
   const getIconConfig = (signal: RecentSignal) => {
     if (signal.type === "incident") {
       if (signal.severity === "critical" || signal.severity === "high") {
@@ -104,15 +138,25 @@ export const StrategicAlignmentCard = ({
   };
 
   const items: StrategicItemProps[] = recentSignals.map((signal) => {
-    const { icon, bg } = getIconConfig(signal);
+    const { icon, bg,  } = getIconConfig(signal);
 
     return {
       icon,
       iconBg: bg,
+      id:signal.id,
       title: signal.title,
       subtitle: `${signal.team} · ${formatTimeAgo(signal.timestamp)}`,
     };
   });
+
+  const visibleItems = items.slice(0, visibleCount);
+  const hasMore = visibleCount < items.length;
+
+
+
+
+
+ 
 
   return (
     <Card>
@@ -130,10 +174,22 @@ export const StrategicAlignmentCard = ({
                 className="h-[52px] bg-[#101E25] rounded animate-pulse"
               />
             ))
-          : items.map((item, index) => (
+          : visibleItems.map((item, index) => (
               <StrategicItem key={index} {...item} />
             ))}
       </div>
+
+      {/* Load More Button */}
+      {!loading && hasMore && (
+        <button
+          onClick={() =>
+            setVisibleCount((prev) => prev + LOAD_STEP)
+          }
+          className="mt-4 text-[12px] text-[#469F88] hover:underline self-center"
+        >
+          Load more
+        </button>
+      )}
     </Card>
   );
 };

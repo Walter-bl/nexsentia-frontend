@@ -30,8 +30,8 @@ const PrivacySection = ({ privacyArchitecture }: PrivacySectionProps) => {
   const metrics = [
     { label: "Anonymized", value: `${anonymizationRate}%` },
     { label: "PII Stored", value: piiStored },
-    { label: "Compliant", value: soc2Compliant ? "SOC2 ✅" : "SOC2 ❌" },
-    { label: "Compliant", value: gdprCompliant ? "GDPR ✅" : "GDPR ❌" },
+    { label: "Compliant", value: soc2Compliant ? "SOC2" : "SOC2" },
+    { label: "Compliant", value: gdprCompliant ? "GDPR" : "GDPR" },
   ];
 
   return (

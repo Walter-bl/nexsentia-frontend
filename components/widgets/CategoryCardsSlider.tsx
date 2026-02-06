@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
@@ -11,6 +11,7 @@ import { Pill } from "@/components/ui/Pill";
 import { CardHeader } from "@/components/widgets/CardHeader";
 import { TrendingUp, TrendingDown } from "lucide-react";
 import { STRAIG_ALIGN, CHAT_ICON } from "@/utils/icons";
+import type { Swiper as SwiperType } from "swiper";
 
 type Category = {
   score: number;
@@ -23,32 +24,43 @@ interface Props {
   loading?: boolean;
 }
 
-const CategoryCardsSlider = ({ categories = {}, loading = false }: Props) => {
-  const categoryList = Object.entries(categories || {}); // safe fallback
+
+
+const CategoryCardsSlider = ({ categories = {}, loading = false }:Props) => {
+  const swiperRef = useRef<SwiperType | null>(null);
+  const [ready, setReady] = useState(false);
+
+  const categoryList = Object.entries(categories || {});
+
+  useEffect(() => {
+    if (categoryList.length > 1) {
+      setReady(true);
+    }
+  }, [categoryList.length]);
+
+  if (!ready) return null; // 🔥 CRITICAL FIX
 
   return (
     <Swiper
+      key={categoryList.length}   // 🔥 FORCE RE-MOUNT
+      onSwiper={(swiper) => (swiperRef.current = swiper)}
       spaceBetween={16}
-      slidesPerView={1} // default 1 slide
+      slidesPerView={1}
       autoplay={{
-        delay: 3000, // auto-slide every 3s
+        delay: 3000,
         disableOnInteraction: false,
       }}
-      loop={true} // loop slides
+      loop
       modules={[Autoplay]}
       breakpoints={{
-        768: { slidesPerView: 2 }, // 2 slides for screens >= 768px
-        1024: { slidesPerView: 2 }, // same for larger
+        768: { slidesPerView: 2 },
+        1024: { slidesPerView: 2 },
       }}
       className="w-full"
     >
       {categoryList.map(([key, cat]) => (
-        <SwiperSlide
-          key={key}
-          style={{ width: "auto" }}
-          className="h-[160px]"
-        >
-          <Card className="h-full w-full py-[20px]">
+        <SwiperSlide key={key} className="h-[160px]">
+  <Card className="h-full w-full py-[20px]">
             {loading ? (
               <div className="h-full w-full bg-[#1A1A1A] rounded animate-pulse" />
             ) : (
@@ -88,11 +100,12 @@ const CategoryCardsSlider = ({ categories = {}, loading = false }: Props) => {
                 </div>
               </>
             )}
-          </Card>
-        </SwiperSlide>
+          </Card>        </SwiperSlide>
       ))}
     </Swiper>
   );
 };
+
+
 
 export default CategoryCardsSlider;

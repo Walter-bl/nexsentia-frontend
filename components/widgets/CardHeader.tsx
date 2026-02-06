@@ -29,7 +29,7 @@ export const CardHeader = ({ label, icon, onClick, text, bgColor }: Props) => {
         {onClick ? (
           <div onClick={() => onClick()} className=" cursor-pointer h-fit p-2 ">{RIGHT_ARROW}</div>
         ) : (
-          RIGHT_ARROW
+          null
         )}
       </div>
     </div>
