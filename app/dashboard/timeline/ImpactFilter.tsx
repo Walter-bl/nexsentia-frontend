@@ -56,7 +56,7 @@ export const ImpactFilter = ({
             <button
               key={label}
               onClick={() => setActiveFilter(label)}
-              className={`shrink-0 flex h-[28px] sm:h-[30px] items-center justify-center rounded-[7px] px-4 sm:px-5 text-[13px] sm:text-sm font-semibold transition-all ${
+              className={`shrink-0 cursor-pointer flex h-[28px] sm:h-[30px] items-center justify-center rounded-[7px] px-4 sm:px-5 text-[13px] sm:text-sm font-semibold transition-all ${
                 isActive ? active : inactive
               }`}
             >

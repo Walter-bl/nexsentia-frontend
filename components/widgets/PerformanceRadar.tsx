@@ -47,7 +47,7 @@ const PerformanceRadar = ({ metrics }: Props) => {
         style: { colors: "#9ca3af", fontSize: "14px", fontFamily: "inherit" },
       },
     },
-    yaxis: { show: false, min: 0, max: 100 },
+    yaxis: { show: false, min: 0 },
     plotOptions: {
       radar: {
         size: 120,
