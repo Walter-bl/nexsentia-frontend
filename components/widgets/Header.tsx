@@ -15,7 +15,7 @@ interface HeaderProps {
 export const Header = () => {
   const pathname = usePathname();
   const {  setSidebarOpen, sidebarOpen,filter, setFilter}=useAuth()
-  const isDashboardRoot = pathname === "/dashboard";
+  const isDashboardRoot = pathname === "/dashboard" || pathname ===  '/dashboard/roi-impact'
 
 
 

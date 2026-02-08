@@ -14,7 +14,6 @@ export interface TimelineItem {
 
 export const timelineService = {
 getTimeline: (page: number = 1, limit: number = 10, activeFilter: string) => {
-  // If filter is "All", we don't send the impactLevel param
   const filterParam = activeFilter === "all" ? "" : `&impactLevel=${activeFilter.toLowerCase()}`;
   return api.get<{ events: TimelineItem[]; total: number, totalPages: number }>(
     `/timeline?page=${page}&limit=${limit}${filterParam}`

@@ -31,7 +31,7 @@ export const Sidebar = ({ isOpen, setIsOpen }: SidebarProps) => {
     { label: "Timeline", icon: <Clock size={20} />, path: "/dashboard/timeline" },
     { label: "Privacy & Data", icon: <Shield size={20} />, path: "/dashboard/privacy" },
     { label: "Action Center", icon: <AlertCircle size={20} />, path: "/dashboard/action-center" },
-    { label: "ROI & Impact", icon: <TrendingUp size={20} />, path: "/dashboard/toi-impact" },
+    { label: "ROI & Impact", icon: <TrendingUp size={20} />, path: "/dashboard/roi-impact" },
   ];
 
  const isActive = (path: string) => {
