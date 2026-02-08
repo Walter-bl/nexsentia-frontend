@@ -75,7 +75,7 @@ const UserProfile = () => {
 
       <div className="space-y-10">
         {/* Permissions Section */}
-        <section className="bg-[#0A1C24] p-5 rounded-xl border border-[#1a2e31]">
+        {/* <section className="bg-[#0A1C24] p-5 rounded-xl border border-[#1a2e31]">
           <div className="flex items-center gap-2 mb-4 text-[#D2DCE5]">
             <ShieldCheck size={18} className="text-[#0BB995]" />
             <h3 className="text-md font-semibold">Permissions & Access</h3>
@@ -93,7 +93,7 @@ const UserProfile = () => {
               <p className="text-xs text-[#465a69]">No specific permissions assigned.</p>
             )}
           </div>
-        </section>
+        </section> */}
 
         {/* Integrations Section */}
         <section>

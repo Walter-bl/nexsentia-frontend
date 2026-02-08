@@ -33,7 +33,7 @@ const StatusHeader: React.FC<StatusHeaderProps> = ({ statuses }) => {
 
             {/* Count Badge */}
             <div
-              className={`px-3 py-0.5 rounded-full text-[8.57px] font-bold min-w-[24px] flex justify-center items-center ${status.badgeColor}`}
+              className={`px-3 text-[#EFF2FE] py-0.5 rounded-full text-[8.57px] font-bold min-w-[24px] flex justify-center items-center ${status.badgeColor}`}
             >
               {status.count}
             </div>

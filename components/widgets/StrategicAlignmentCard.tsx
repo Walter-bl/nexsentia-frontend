@@ -27,6 +27,8 @@ type RecentSignal = {
   timestamp: string;
   team: string;
   status: string;
+    affectedEntities:any[]
+
 };
 
 type StrategicItemProps = {
@@ -39,6 +41,7 @@ type StrategicItemProps = {
   confidenceScore: number;
   status: string;
   category: string;
+  affectedEntities:any[]
 };
 
 /* 🔹 Reusable Item Component */
@@ -50,6 +53,7 @@ const StrategicItem = ({
   id,
   severity,
   confidenceScore,
+  affectedEntities,
   category,
 }: StrategicItemProps) => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -96,30 +100,44 @@ const StrategicItem = ({
         </div>
 
         {/* Data Row */}
-        <div className="flex flex-wrap items-center gap-3 pt-3 border-t border-[#1a2e31]">
-          {/* Severity Badge */}
-          <span className={`text-[9px] uppercase font-bold px-1.5 py-0.5 rounded border ${severityColors[severity]}`}>
-            {severity}
-          </span>
+      <div className="flex flex-wrap items-center gap-3 pt-3 border-t border-[#1a2e31]">
+  {/* Severity Badge */}
+  <span className={`text-[9px] uppercase font-bold px-1.5 py-0.5 rounded border ${severityColors[severity]}`}>
+    {severity}
+  </span>
 
-          {/* Category */}
-          {/* <div className="flex items-center gap-1 text-[#465a69]">
-            <Activity size={10} />
-            <span className="text-[10px] font-medium uppercase tracking-wider">{category}</span>
-          </div> */}
+  {/* Affected Entities Section */}
+  <div className="flex items-center gap-2">
+    {affectedEntities?.map((entity: any) => (
+      <div 
+        key={entity.id} 
+        className="flex items-center gap-1.5 px-2 py-0.5 rounded-md"
+      >
+        {/* Type Icon Indicator (Small dot colored by impact) */}
+        {/* <div className={`w-1 h-1 rounded-full ${
+          entity.impactLevel === 'high' ? 'bg-red-500' : 
+          entity.impactLevel === 'medium' ? 'bg-orange-500' : 'bg-blue-400'
+        }`} /> */}
+    
+        <span className="text-[10px] capitalize text-slate-200 font-bold">
+        {entity.name} - {entity.type}
+        </span>
+      </div>
+    ))}
+  </div>
 
-          {/* Confidence Score Bar */}
-          <div className="flex items-center gap-2 ml-auto">
-            <span className="text-[10px] text-[#3C4C58]">Confidence</span>
-            <div className="w-12 h-1 bg-[#132326] rounded-full overflow-hidden">
-              <div
-                className="h-full bg-[#00bfa5] transition-all duration-1000"
-                style={{ width: `${confidenceScore}%` }}
-              />
-            </div>
-            <span className="text-[10px] font-bold text-slate-300">{confidenceScore}%</span>
-          </div>
-        </div>
+  {/* Confidence Score Bar */}
+  <div className="flex items-center gap-2 ml-auto">
+    <span className="text-[10px] text-[#3C4C58] font-medium">Confidence</span>
+    <div className="w-12 h-1 bg-[#132326] rounded-full overflow-hidden">
+      <div
+        className="h-full bg-[#00bfa5] transition-all duration-1000"
+        style={{ width: `${confidenceScore}%` }}
+      />
+    </div>
+    <span className="text-[10px] font-bold text-slate-300">{confidenceScore}%</span>
+  </div>
+</div>
       </div>
 
       <Drawer
@@ -191,6 +209,7 @@ export const StrategicAlignmentCard = ({
       severity: signal.severity || "low",
       status: signal.status,
       confidenceScore: signal.confidenceScore,
+      affectedEntities:signal?.affectedEntities,
       subtitle: `${formatTimeAgo(signal.timestamp)}`,
     };
   });

@@ -79,7 +79,7 @@ const ActionCard: React.FC<ActionCardProps> = ({
           </span>
         </div>
 
-        <div className="flex items-center gap-3">
+        {/* <div className="flex items-center gap-3">
           <div
             className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold text-[#FFFFFF] ${avatarColor}`}
           >
@@ -91,7 +91,7 @@ const ActionCard: React.FC<ActionCardProps> = ({
           <span className="text-[#EFF2FE] text-[12px] font-semibold">
             {user}
           </span>
-        </div>
+        </div> */}
       </div>
       <Drawer
         isOpen={isDrawerOpen}

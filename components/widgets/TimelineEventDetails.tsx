@@ -87,13 +87,13 @@ const TimelineEventDetails = ({ eventId }: { eventId: string | null }) => {
 
           {/* 2. Stats Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 border-t border-[#2d4d52] pt-6 pb-6">
-            <div className="flex items-center gap-3">
+            {/* <div className="flex items-center gap-3">
               <div className="p-2 bg-[#1a2e31] rounded-lg text-slate-400"><User size={16} /></div>
               <div>
                 <p className="text-[10px] text-slate-500 uppercase font-bold">Assignee</p>
                 <p className="text-sm text-slate-200">{data.metadata.assignee}</p>
               </div>
-            </div>
+            </div> */}
             <div className="flex items-center gap-3">
               <div className="p-2 bg-[#1a2e31] rounded-lg text-slate-400"><Server size={16} /></div>
               <div>
@@ -167,20 +167,20 @@ const TimelineEventDetails = ({ eventId }: { eventId: string | null }) => {
           </section>
 
           {/* 5. External Source Link */}
-          <div className="mt-6 flex items-center justify-between p-3 bg-black/20 rounded-xl border border-[#2d4d52]">
+          {/* <div className="mt-6 flex items-center justify-between p-3 bg-black/20 rounded-xl border border-[#2d4d52]">
             <div className="flex items-center gap-2">
               <div className={`w-2 h-2 rounded-full ${data.metadata.status === 'resolved' ? 'bg-green-500' : 'bg-yellow-500 animate-pulse'}`} />
               <span className="text-xs font-bold text-slate-400">
                 STATUS: {data.metadata.status.toUpperCase()}
               </span>
             </div>
-            {/* <a 
+            <a 
               href={`#`} 
               className="flex items-center gap-1 text-[11px] font-bold text-[#00bfa5] hover:underline"
             >
               VIEW IN JIRA <ExternalLink size={12} />
-            </a> */}
-          </div>
+            </a>
+          </div> */}
         </div>
       </div>
     </div>

@@ -121,23 +121,24 @@ const DataSources = ({ dataSources }: DataSourcesProps) => {
                         </span>
                       </div>
                     </div>
-
-                    <div
-                      className={`flex text-[#124337] items-center gap-2 px-2 py-1 rounded-full ${
-                        source.isConnected ? "bg-[#8181A5]" : "bg-[#B22222]"
-                      }`}
-                    >
-                      <div
-                        className={`w-2 h-2 rounded-full ${
-                          source.isConnected
-                            ? "bg-[#124337] animate-pulse"
-                            : "bg-red-500"
-                        }`}
-                      />
-                      <span className="text-[12px] font-normal uppercase">
-                        {source.isConnected ? "Connected" : "Disconnected"}
-                      </span>
-                    </div>
+<div
+  className={`flex items-center gap-2 px-3 py-1 rounded-full border transition-all duration-300 ${
+    source.isConnected
+      ? "bg-[#10b981]/10 border-[#10b981]/20 text-[#ffffff]" // Emerald Green
+      : "bg-red-500/10 border-red-500/20 text-[#ffffff]"      // Soft Rose Red
+  }`}
+>
+  <div
+    className={`w-1.5 h-1.5 rounded-full ${
+      source.isConnected
+        ? "bg-[#10b981] shadow-[0_0_8px_rgba(16,185,129,0.5)] animate-pulse"
+        : "bg-red-500 shadow-[0_0_8px_rgba(239,68,68,0.4)]"
+    }`}
+  />
+  <span className="text-[11px] font-bold uppercase tracking-wider">
+    {source.isConnected ? "Connected" : "Disconnected"}
+  </span>
+</div>
                   </div>
 
                   {/* Stats Row */}

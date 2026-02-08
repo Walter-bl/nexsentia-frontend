@@ -133,7 +133,7 @@ const ActionItemDetailCard = ({ actionItemId }: ActionItemDetailProps) => {
           <span className={`px-2 py-1 rounded text-[10px] font-bold uppercase border ${priorityColors[data.priority as keyof typeof priorityColors] || priorityColors.low}`}>
             {data.priority} Priority
           </span>
-          <span className="text-[#465a69] text-[12px] ml-auto font-mono">
+          <span className="text-[#ffffff] text-[12px] ml-auto font-mono">
             {data.sourceType?.toUpperCase()}: {data.sourceId}
           </span>
         </div>
@@ -144,11 +144,11 @@ const ActionItemDetailCard = ({ actionItemId }: ActionItemDetailProps) => {
         {data.metadata && (
           <div className="flex flex-wrap gap-4 mt-4 pt-4 border-t border-[#1a2e31]/50">
             <div className="flex items-center gap-2">
-              <span className="text-[10px] text-[#465a69] uppercase font-bold">Affected:</span>
+              <span className="text-[10px] text-[#ffffff] uppercase font-semibold">Affected:</span>
               <span className="text-[11px] text-slate-300">{data.metadata.affectedSystems?.join(", ")}</span>
             </div>
             <div className="flex items-center gap-2">
-              <span className="text-[10px] text-[#465a69] uppercase font-bold">Impact:</span>
+              <span className="text-[10px] text-[#ffffff] uppercase font-semibold">Impact:</span>
               <span className="text-[11px] text-slate-300">{data.metadata.estimatedImpact}</span>
             </div>
           </div>
@@ -158,17 +158,17 @@ const ActionItemDetailCard = ({ actionItemId }: ActionItemDetailProps) => {
       <div className="p-6 space-y-8">
         {/* 2. Quick Stats */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div className="bg-[#0A1C24] p-4 rounded-lg border border-[#1a2e31] flex items-center gap-4">
+          {/* <div className="bg-[#0A1C24] p-4 rounded-lg border border-[#1a2e31] flex items-center gap-4">
             <div className="w-10 h-10 rounded-full bg-blue-500/10 flex items-center justify-center text-blue-400"><User size={20} /></div>
             <div>
               <p className="text-[10px] text-[#465a69] uppercase font-bold">Assigned To</p>
               <p className="text-sm font-medium">{data.assignedToName || "Unassigned"}</p>
             </div>
-          </div>
+          </div> */}
           <div className="bg-[#0A1C24] p-4 rounded-lg border border-[#1a2e31] flex items-center gap-4">
             <div className="w-10 h-10 rounded-full bg-purple-500/10 flex items-center justify-center text-purple-400"><Clock size={20} /></div>
             <div>
-              <p className="text-[10px] text-[#465a69] uppercase font-bold">Effort / Category</p>
+              <p className="text-[10px] text-[#ffff] uppercase font-semibold">Effort / Category</p>
               <p className="text-sm font-medium">{data.aiAnalysis?.estimatedEffort} · {data.category}</p>
             </div>
           </div>
@@ -261,8 +261,8 @@ const ActionItemDetailCard = ({ actionItemId }: ActionItemDetailProps) => {
         </section>
 
         {/* 7. Documentation */}
-        <section>
-          <div className="flex items-center gap-2 mb-4 text-[#465a69]">
+        {/* <section>
+          <div className="flex items-center gap-2 mb-4 text-[#ffffff]">
             <Info size={18} />
             <h2 className="text-sm font-bold uppercase tracking-widest">Resources</h2>
           </div>
@@ -280,7 +280,7 @@ const ActionItemDetailCard = ({ actionItemId }: ActionItemDetailProps) => {
               </a>
             ))}
           </div>
-        </section>
+        </section> */}
       </div>
     </Card>
   );
