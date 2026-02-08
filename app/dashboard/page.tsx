@@ -124,20 +124,19 @@ export default function DashboardPage() {
           </>
         )}
       </div>
-      <div className="grid grid-cols-1 gap-[25px] lg:grid-cols-2">
-        {loading ? (
-          <>
-            <div className="h-[250px] w-full bg-gray-700 rounded animate-pulse" />
-            <div className="h-[250px] w-full bg-gray-700 rounded animate-pulse" />
-          </>
-        ) : (
-          <>
-            <StrategicAlignmentCard recentSignals={data?.recentSignals} />
-           <Signals signalDistribution={data?.signalDistribution} />
-
-          </>
-        )}
-      </div>
+   <div className="grid grid-cols-1 gap-[25px] lg:grid-cols-2 items-start">
+  {loading ? (
+    <>
+      <div className="h-[250px] w-full bg-gray-700 rounded animate-pulse" />
+      <div className="h-[250px] w-full bg-gray-700 rounded animate-pulse" />
+    </>
+  ) : (
+    <>
+      <StrategicAlignmentCard recentSignals={data?.recentSignals} />
+      <Signals signalDistribution={data?.signalDistribution} />
+    </>
+  )}
+</div>
     </>
   );
 }

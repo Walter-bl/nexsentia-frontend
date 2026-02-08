@@ -15,7 +15,7 @@ import { Pagination } from "@/components/widgets/Pagination";
 import { Drawer } from "@/components/widgets/Drawer";
 import TimelineEventDetails from "@/components/widgets/TimelineEventDetails";
 
-type FilterType = "All" | "High Impact" | "Medium Impact" | "Low Impact";
+type FilterType = "All" |"all" | "High Impact" | "Medium Impact" | "Low Impact";
 
 // --- Skeleton Component ---
 const TimelineSkeleton = () => (
@@ -58,7 +58,7 @@ const impactColorIcon: Record<
 };
 
 const TimelinePage = () => {
-  const [activeFilter, setActiveFilter] = useState<FilterType>("All");
+  const [activeFilter, setActiveFilter] = useState<FilterType>("all");
   const [loading, setLoading] = useState(true);
   const [timeline, setTimeline] = useState<TimelineItem[]>([]);
   const [page, setPage] = useState(1);
@@ -71,7 +71,7 @@ const TimelinePage = () => {
     const fetchTimeline = async () => {
       setLoading(true);
       try {
-        const res = await timelineService.getTimeline(page, limit);
+        const res = await timelineService.getTimeline(page, limit,activeFilter);
         setTimeline(res.events);
         setTotalPages(res.totalPages);
       } catch (err) {
@@ -84,18 +84,18 @@ const TimelinePage = () => {
     };
 
     fetchTimeline();
-  }, [page]);
+  }, [page,activeFilter]);
 
-  const filteredEvents = useMemo(() => {
-    if (activeFilter === "All") return timeline;
-    return timeline.filter((event) => {
-      const impactLabel =
-        event.impactLevel.charAt(0).toUpperCase() +
-        event.impactLevel.slice(1) +
-        " Impact";
-      return impactLabel === activeFilter;
-    });
-  }, [timeline, activeFilter]);
+  // const filteredEvents = useMemo(() => {
+  //   if (activeFilter === "All") return timeline;
+  //   return timeline.filter((event) => {
+  //     const impactLabel =
+  //       event.impactLevel.charAt(0).toUpperCase() +
+  //       event.impactLevel.slice(1) +
+  //       " Impact";
+  //     return impactLabel === activeFilter;
+  //   });
+  // }, [timeline, activeFilter]);
 
   return (
     <div className="min-h-screen md:p-6 text-gray-300">
@@ -110,8 +110,8 @@ const TimelinePage = () => {
       <div className="space-y-4">
         {loading ? (
           <TimelineSkeleton />
-        ) : filteredEvents.length ? (
-          filteredEvents.map((event) => {
+        ) : timeline.length ? (
+          timeline.map((event) => {
             const impactLabel =
               event.impactLevel.charAt(0).toUpperCase() +
               event.impactLevel.slice(1) +

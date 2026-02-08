@@ -1,7 +1,9 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { AlertTriangle } from "lucide-react";
+import { Drawer } from "@/components/widgets/Drawer";
+import ActionItemDetailCard from "@/components/widgets/ActionItemDetailCard";
 
 // Priority type
 type PriorityLevel = "High" | "Critical" | "Medium" | "Low";
@@ -24,6 +26,7 @@ interface ActionCardProps {
   user: string;
   avatarColor: string;
   warningText?: string;
+  id: number | string;
 }
 
 const ActionCard: React.FC<ActionCardProps> = ({
@@ -32,8 +35,12 @@ const ActionCard: React.FC<ActionCardProps> = ({
   description,
   user,
   avatarColor,
+  id,
   warningText = "Recurring deployment failures in CI/CD pipeline",
 }) => {
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [ actionItemId, setActionItemId ] = useState<string | null>(null);
+
   const priorityStyles: Record<PriorityLevel, string> = {
     High: "bg-[#7E161F] text-[#EFF2FE]",
     Critical: "bg-[#BA6D20] text-[#EFF2FE]",
@@ -42,39 +49,60 @@ const ActionCard: React.FC<ActionCardProps> = ({
   };
 
   return (
-    <div className="border px-[27px] py-[31px] rounded-[15.29px] border-[#33AD8C] bg-[#469F8845] flex flex-col h-full">
+    <>
       <div
-        className={`self-start w-fit px-3 py-1 rounded-full text-[12px] font-bold uppercase tracking-tighter ${priorityStyles[priority]}`}
+        onClick={() => {
+          setActionItemId(id as string);
+          setIsDrawerOpen(true);
+        }}
+        className="border cursor-pointer px-[27px] py-[31px] rounded-[15.29px] border-[#33AD8C] bg-[#469F8845] flex flex-col h-full"
       >
-        {priority}
-      </div>
-
-      <div className="flex-grow">
-        <h3 className="text-[#EFF2FE] font-semibold text-[18.68px] leading-tight mb-2 mt-[10px]">
-          {title}
-        </h3>
-        <p className="text-[#71858C] text-[14.94px] mb-2 leading-snug">
-          {description}
-        </p>
-      </div>
-
-      <div className="bg-[#27292A80] rounded-lg p-2 flex items-center gap-2 mb-4">
-        <AlertTriangle className="w-4 h-4 text-[#F4BE5E] flex-shrink-0" />
-        <span className="text-[11px] text-[#71858C] truncate">{warningText}</span>
-      </div>
-
-      <div className="flex items-center gap-3">
         <div
-          className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold text-[#FFFFFF] ${avatarColor}`}
+          className={`self-start w-fit px-3 py-1 rounded-full text-[12px] font-bold uppercase tracking-tighter ${priorityStyles[priority]}`}
         >
-          {user
-            .split(" ")
-            .map((n) => n[0])
-            .join("")}
+          {priority}
         </div>
-        <span className="text-[#EFF2FE] text-[12px] font-semibold">{user}</span>
+
+        <div className="flex-grow">
+          <h3 className="text-[#EFF2FE] font-semibold text-[18.68px] leading-tight mb-2 mt-[10px]">
+            {title}
+          </h3>
+          <p className="text-[#71858C] text-[14.94px] mb-2 leading-snug">
+            {description}
+          </p>
+        </div>
+
+        <div className="bg-[#27292A80] rounded-lg p-2 flex items-center gap-2 mb-4">
+          <AlertTriangle className="w-4 h-4 text-[#F4BE5E] flex-shrink-0" />
+          <span className="text-[11px] text-[#71858C] truncate">
+            {warningText}
+          </span>
+        </div>
+
+        <div className="flex items-center gap-3">
+          <div
+            className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold text-[#FFFFFF] ${avatarColor}`}
+          >
+            {user
+              .split(" ")
+              .map((n) => n[0])
+              .join("")}
+          </div>
+          <span className="text-[#EFF2FE] text-[12px] font-semibold">
+            {user}
+          </span>
+        </div>
       </div>
-    </div>
+      <Drawer
+        isOpen={isDrawerOpen}
+        onClose={() => setIsDrawerOpen(false)}
+        title="Team Signals"
+        // subtitle="Detailed explanation"
+        maxWidth="700px"
+      >
+        <ActionItemDetailCard actionItemId={actionItemId} />
+      </Drawer>
+    </>
   );
 };
 
@@ -116,6 +144,7 @@ const ActionGrid: React.FC<ActionGridProps> = ({ actions }) => {
       {actions?.map((action) => (
         <ActionCard
           key={action.id}
+          id={action.id}
           priority={mapPriority(action.priority)}
           title={action.title}
           description={action.description}

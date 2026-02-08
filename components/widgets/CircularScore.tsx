@@ -51,18 +51,19 @@ export const CircularScore = ({ overallHealth }: Props) => {
             cx={radius + strokeWidth / 2}
             cy={radius + strokeWidth / 2}
             r={radius}
-            stroke={textColor} // color based on status
+            stroke={textColor} 
             strokeWidth={strokeWidth}
             fill="none"
             strokeDasharray={circumference}
             strokeDashoffset={circumference * (1 - score / 100)}
             strokeLinecap="round"
+            className="transition-[stroke-dashoffset,stroke] duration-1000 ease-in-out"
           />
         </svg>
 
         {/* Center Content */}
-        <div className="absolute inset-0 flex flex-col items-center justify-center">
-          <span className="text-[56px] font-bold leading-[84px]" style={{ color: textColor }}>
+        <div className="absolute mr-[15px] inset-0 flex flex-col items-center justify-center">
+          <span className="text-[56px] ml-[5px] font-bold leading-[84px]" style={{ color: textColor }}>
             {score}
           </span>
           <span

@@ -8,6 +8,7 @@ type SignalDistributionItem = {
   incidentCount: number;
   signalCount: number;
   color: string;
+  totalCount:number
 };
 
 type SignalsProps = {
@@ -29,37 +30,37 @@ const Signals = ({ signalDistribution }: SignalsProps) => {
       />
 
       <div className="flex flex-col gap-5 mt-[15px]">
-        {signalDistribution.map((item) => {
-          const achieved = Math.round(
-            (item.signalCount / maxSignals) * 100
-          );
+      {signalDistribution.map((item) => {
+  const achieved = maxSignals > 0 
+    ? Math.round((item.signalCount / maxSignals) * 100) 
+    : 0;
 
-          return (
-            <div key={item.theme} className="flex flex-col">
-              <div className="flex mb-[6px] justify-between">
-                <p className="text-[#D2DCE5] font-500 text-[12px]">
-                  {item.theme}
-                </p>
+  return (
+    <div key={item.theme} className="flex flex-col mb-4">
+      <div className="flex mb-[6px] justify-between items-center">
+        <p className="text-[#D2DCE5] font-medium text-[12px]">
+          {item.theme}
+        </p>
 
-                <p className="text-[12px] text-[#71858C]">
-                  <span className="font-400">
-                    {item.incidentCount} incidents
-                  </span>{" "}
-                  <span className="font-bold">
-                    {item.signalCount} signals
-                  </span>
-                </p>
-              </div>
+        <p className="text-[11px] text-[#71858C]">
+          <span className="font-normal mr-2">
+            {item.incidentCount} incidents
+          </span>
+          <span className="font-bold text-[#D2DCE5]">
+            {item.signalCount} signals
+          </span>
+        </p>
+      </div>
 
-              <OverlapSlider
-                total={100}
-                achieved={achieved}
-                trackColor="#8181A5"
-                fillColor={item.color}
-              />
-            </div>
-          );
-        })}
+      <OverlapSlider
+        total={item.totalCount}
+        achieved={achieved}
+        trackColor="rgba(129, 129, 165, 0.2)" // Slight transparency for a more modern look
+        fillColor={item.color}
+      />
+    </div>
+  );
+})}
       </div>
     </Card>
   );

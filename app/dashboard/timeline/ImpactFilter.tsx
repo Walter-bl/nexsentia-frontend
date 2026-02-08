@@ -2,7 +2,7 @@
 
 import { Filter } from "lucide-react";
 
-type FilterType = "All" | "High Impact" | "Medium Impact" | "Low Impact";
+type FilterType = "All" | 'all' | "High Impact" | "Medium Impact" | "Low Impact";
 
 interface ImpactFilterProps {
   activeFilter: FilterType;
@@ -12,25 +12,30 @@ interface ImpactFilterProps {
 const FILTERS: {
   label: FilterType;
   active: string;
+  type:any;
   inactive: string;
 }[] = [
   {
     label: "All",
+    type:'all',
     active: "bg-[#124337] text-[#8AF1B9] ring-1 ring-[#8AF1B9]/30",
     inactive: "bg-white/5 text-gray-400 hover:bg-white/10",
   },
   {
     label: "High Impact",
+     type:'high',
     active: "bg-[#7A3335] text-[#EFF2FE] ring-1 ring-white/20",
     inactive: "bg-[#7A3335]/30 text-gray-400 hover:bg-[#7A3335]/50",
   },
   {
     label: "Medium Impact",
+    type:'medium',
     active: "bg-[#A97C28] text-[#EFF2FE] ring-1 ring-white/20",
     inactive: "bg-[#A97C28]/30 text-gray-400 hover:bg-[#A97C28]/50",
   },
   {
     label: "Low Impact",
+    type:'low',
     active: "bg-[#469F88] text-[#EFF2FE] ring-1 ring-white/20",
     inactive: "bg-[#469F88]/30 text-gray-400 hover:bg-[#469F88]/50",
   },
@@ -49,13 +54,13 @@ export const ImpactFilter = ({
 
       {/* Filters */}
       <div className="flex gap-2 sm:gap-3">
-        {FILTERS.map(({ label, active, inactive }) => {
-          const isActive = activeFilter === label;
+        {FILTERS.map(({ label, active, inactive,type }) => {
+          const isActive = activeFilter === type;
 
           return (
             <button
               key={label}
-              onClick={() => setActiveFilter(label)}
+              onClick={() => setActiveFilter(type)}
               className={`shrink-0 cursor-pointer flex h-[28px] sm:h-[30px] items-center justify-center rounded-[7px] px-4 sm:px-5 text-[13px] sm:text-sm font-semibold transition-all ${
                 isActive ? active : inactive
               }`}

@@ -12,7 +12,7 @@ export const OverlapSlider = ({
   fillColor,
 }: OverlapSliderProps) => {
   const percentage = Math.min((achieved / total) * 100, 100);
-
+console.log('percentage =========',percentage)
   return (
     <div className="w-full">
       <div
