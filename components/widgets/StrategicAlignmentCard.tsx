@@ -152,20 +152,38 @@ const StrategicItem = ({
   );
 };
 
+
+/* ... existing imports and types ... */
+
 type Props = {
-  recentSignals?: RecentSignal[];
+  // Updated type to reflect the nested object structure in your JSON
+  recentSignals?: Record<string, RecentSignal[]>; 
   loading?: boolean;
 };
 
 const LOAD_STEP = 5;
 
-/* 🔹 Main Component */
 export const StrategicAlignmentCard = ({
-  recentSignals = [],
+  recentSignals = {}, // Default to empty object
   loading = false,
 }: Props) => {
+  // 1. State for the active filter (null means "All")
+  const [activeFilter, setActiveFilter] = useState<string | null>(null);
   const [visibleCount, setVisibleCount] = useState(LOAD_STEP);
 
+  // 2. Extract available sources (e.g., ["jira", "servicenow"])
+  const sources = Object.keys(recentSignals);
+
+  // 3. Flatten and filter data
+  const allSignalsFlat = Object.entries(recentSignals).flatMap(([source, signals]) =>
+    signals.map((s) => ({ ...s, source })) // Inject source name into signal
+  );
+
+  const filteredSignals = activeFilter
+    ? allSignalsFlat.filter((s) => s.source === activeFilter)
+    : allSignalsFlat;
+
+  /* Helper functions (getIconConfig, formatTimeAgo) remain the same */
   const getIconConfig = (signal: RecentSignal) => {
     if (signal.type === "incident") {
       if (signal.severity === "critical" || signal.severity === "high") {
@@ -195,28 +213,26 @@ export const StrategicAlignmentCard = ({
     return `${Math.floor(hours / 24)} days ago`;
   };
 
-  // 1. Map data to props with fallbacks for optional fields
-  const items: StrategicItemProps[] = recentSignals.map((signal) => {
+  // 4. Map filtered data to UI props
+  const items: StrategicItemProps[] = filteredSignals.map((signal) => {
     const { icon, bg } = getIconConfig(signal);
-
     return {
       icon,
       iconBg: bg,
       id: signal.id,
       title: signal.title,
       category: signal.category,
-      // Provide a fallback "low" if severity is missing to satisfy TypeScript
       severity: signal.severity || "low",
       status: signal.status,
       confidenceScore: signal.confidenceScore,
-      affectedEntities:signal?.affectedEntities,
+      affectedEntities: signal?.affectedEntities,
       subtitle: `${formatTimeAgo(signal.timestamp)}`,
     };
   });
 
   const visibleItems = items.slice(0, visibleCount);
   const hasMore = visibleCount < items.length;
-
+console.log('filteredSignals ====',filteredSignals)
   return (
     <Card>
       <CardHeader
@@ -225,41 +241,56 @@ export const StrategicAlignmentCard = ({
         icon={STRAIG_ALIGN}
       />
 
+      {/* 5. Filter Buttons Row */}
+      {!loading && sources.length > 0 && (
+        <div className="flex flex-wrap gap-2 mt-4 px-1">
+          <button
+            onClick={() => { setActiveFilter(null); setVisibleCount(LOAD_STEP); }}
+            className={`px-3 py-1 rounded-md text-[11px] font-bold transition-all border ${
+              activeFilter === null 
+              ? "bg-[#00bfa5] border-[#00bfa5] text-[#0A1C24]" 
+              : "bg-transparent border-[#1a2e31] text-[#71858C] hover:border-[#3C4C58]"
+            }`}
+          >
+            ALL
+          </button>
+          {sources.map((source) => (
+            <button
+              key={source}
+              onClick={() => { setActiveFilter(source); setVisibleCount(LOAD_STEP); }}
+              className={`px-3 py-1 rounded-md text-[11px] font-bold uppercase transition-all border ${
+                activeFilter === source
+                ? "bg-[#00bfa5] border-[#00bfa5] text-[#0A1C24]"
+                : "bg-transparent border-[#1a2e31] text-[#71858C] hover:border-[#3C4C58]"
+              }`}
+            >
+              {source}
+            </button>
+          ))}
+        </div>
+      )}
+
       <div className="flex flex-col gap-2 mt-[15px]">
         {loading
           ? [...Array(5)].map((_, i) => (
-              <div
-                key={i}
-                className="h-[100px] bg-[#101E25] rounded-[10px] animate-pulse"
-              />
+              <div key={i} className="h-[100px] bg-[#101E25] rounded-[10px] animate-pulse" />
             ))
           : visibleItems.map((item) => (
               <StrategicItem key={item.id} {...item} />
             ))}
+            
+        {!loading && visibleItems.length === 0 && (
+          <div className="text-center py-10 text-[#3C4C58] text-sm">
+            No signals found for this source.
+          </div>
+        )}
       </div>
 
-    {!loading && hasMore && (
-        /* Container ensures horizontal centering */
+      {!loading && hasMore && (
         <div className="flex justify-center mt-8 mb-4"> 
           <button
             onClick={() => setVisibleCount((prev) => prev + LOAD_STEP)}
-            className="
-              px-8 py-2.5 cursor-pointer 
-              rounded-full 
-              bg-[#469F88]/10 
-              border border-[#469F88]/30 
-              text-[#469F88] 
-              text-[13px] 
-              font-semibold 
-              tracking-wide
-              hover:bg-[#469F88] 
-              hover:text-white 
-              hover:border-[#469F88] 
-              transition-all 
-              duration-300 
-              shadow-lg shadow-[#469F88]/5
-              active:scale-95
-            "
+            className="px-8 py-2.5 cursor-pointer rounded-full bg-[#469F88]/10 border border-[#469F88]/30 text-[#469F88] text-[13px] font-semibold tracking-wide hover:bg-[#469F88] hover:text-white transition-all duration-300"
           >
             Show More Signals
           </button>

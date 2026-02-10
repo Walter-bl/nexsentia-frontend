@@ -12,7 +12,7 @@ type Props = {
 };
 
 export const CircularScore = ({ overallHealth }: Props) => {
-  // Map status to text color
+  // 1. Existing Text Color Map
   const statusColorMap = {
     critical: "#C9672B",
     warning: "#F2B84B",
@@ -20,23 +20,29 @@ export const CircularScore = ({ overallHealth }: Props) => {
     excellent: "#2EE6A6",
   } as const;
 
+  // 2. New Background Color Map (20% opacity version of the colors above)
+  const statusBgMap = {
+    critical: "rgba(201, 103, 43, 0.2)",
+    warning: "rgba(242, 184, 75, 0.2)",
+    good: "rgba(70, 159, 136, 0.2)",
+    excellent: "rgba(46, 230, 166, 0.2)",
+  } as const;
+
   const textColor = statusColorMap[overallHealth.status] || "#71858C";
+  const bgColor = statusBgMap[overallHealth.status] || "rgba(113, 133, 140, 0.2)";
 
   // Circle configuration
   const radius = 110;
   const strokeWidth = 15;
   const circumference = 2 * Math.PI * radius;
-  const score=overallHealth.score
+  const score = overallHealth.score;
 
   return (
     <div className="relative flex flex-col items-center justify-center">
-      {/* Blurred background */}
       <div className="absolute h-40 w-40 rounded-full bg-[#25ab815a] blur-[50px] -z-10"></div>
 
-      {/* Actual SVG */}
       <div className="relative flex justify-center h-[250px] w-[250px]">
         <svg className="h-full w-full -rotate-90">
-          {/* Background Circle */}
           <circle
             cx={radius + strokeWidth / 2}
             cy={radius + strokeWidth / 2}
@@ -46,12 +52,11 @@ export const CircularScore = ({ overallHealth }: Props) => {
             fill="none"
           />
 
-          {/* Progress Arc */}
           <circle
             cx={radius + strokeWidth / 2}
             cy={radius + strokeWidth / 2}
             r={radius}
-            stroke={textColor} 
+            stroke={textColor}
             strokeWidth={strokeWidth}
             fill="none"
             strokeDasharray={circumference}
@@ -61,7 +66,6 @@ export const CircularScore = ({ overallHealth }: Props) => {
           />
         </svg>
 
-        {/* Center Content */}
         <div className="absolute mr-[15px] inset-0 flex flex-col items-center justify-center">
           <span className="text-[56px] ml-[5px] font-bold leading-[84px]" style={{ color: textColor }}>
             {score}
@@ -73,8 +77,11 @@ export const CircularScore = ({ overallHealth }: Props) => {
             Health Score
           </span>
           <Pill
-            text={`+${overallHealth.totalMetrics} From last`}
+            text={`+${overallHealth.totalMetrics} ${overallHealth.status}`}
             icon={<TrendingUp size={12} />}
+            textColor={textColor} // Set dynamically
+            bgColor={bgColor} 
+          className='!font-[700]' // The ! makes it important
           />
         </div>
       </div>

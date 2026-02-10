@@ -103,7 +103,7 @@ export default function DashboardPage() {
                     Total this quarter
                   </p>
                   <p className="text-[22px] font-500 text-[#D2BB59]">
-                    {data?.businessEscalations?.totalLoss}
+                    {data?.businessEscalations?.totalHoursLost}
                   </p>
                 </div>
               </>
