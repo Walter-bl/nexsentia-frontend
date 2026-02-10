@@ -12,7 +12,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
   const {  setSidebarOpen, sidebarOpen}=useAuth()
   return (
 
-     <AclGuard requiredPermissions={["reports.read"]}>
+     <>
         <div className="flex min-h-screen">
       {/* Sidebar */}
       <Sidebar isOpen={sidebarOpen} setIsOpen={setSidebarOpen} />
@@ -25,7 +25,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
       </div>
       <GradientButton/>
     </div>
-    </AclGuard>
+    </>
   
   );
 };

@@ -1,13 +1,8 @@
 "use client";
 
-import React, { useState } from "react";
-import { ArrowRight, Sparkles } from "lucide-react";
+import  { useState } from "react";
 import { LOGO } from "@/utils/icons";
-import GOOGLE_ICON from "/google.png";
-import MICROSOFT_ICON from "/micro.png";
-import Image from "next/image";
-import InputField from "@/components/ui/InputField";
-import SocialButton from "@/components/ui/SocialButton";
+
 import AuthCard from "@/components/widgets/AuthCard";
 import { useAuth } from "@/context/AuthContext";
 import toast from "react-hot-toast";

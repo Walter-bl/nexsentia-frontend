@@ -29,3 +29,18 @@ body {
   background: #070F12;
   color: var(--foreground);
 }
+
+
+
+/* Global CSS for nice scrollbars */
+.overflow-auto {
+  scrollbar-width: thin;
+  scrollbar-color: #2d4d52 transparent;
+}
+.overflow-auto::-webkit-scrollbar {
+  height: 6px;
+}
+.overflow-auto::-webkit-scrollbar-thumb {
+  background-color: #2d4d52;
+  border-radius: 10px;
+}

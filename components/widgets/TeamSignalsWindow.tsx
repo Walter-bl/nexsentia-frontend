@@ -16,12 +16,16 @@ const TeamSignalsWindow = ({ teamSignals }:any) => {
         
         {/* Left Side: Tabs/List */}
         <div className="w-full ">
-          <div className="flex gap-4 justify-between  overflow-auto w-full ">
+          <div className="flex gap-4 justify-between  overflow-auto snap-x snap-mandatory 
+  scrollbar-thin 
+  scrollbar-track-transparent 
+  scrollbar-thumb-[#2d4d52] 
+  hover:scrollbar-thumb-[#00bfa5]/50 w-full ">
             {teamSignals.map((item:any, index:number) => (
               <button
                 key={item.team}
                 onClick={() => setActiveTab(index)}
-                className={`flex w-full items-center justify-between p-4 rounded-xl border transition-all duration-200 text-left ${
+                className={`flex w-full cursor-pointer items-center justify-between p-4 rounded-xl border transition-all duration-200 text-left ${
                   activeTab === index
                     ? 'bg-[#1a2e31] border-[#00bfa5] shadow-[0_0_15px_rgba(0,191,165,0.1)]'
                     : 'bg-transparent border-[#2d4d52] hover:border-slate-500'

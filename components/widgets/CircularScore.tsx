@@ -28,8 +28,8 @@ export const CircularScore = ({ overallHealth }: Props) => {
     excellent: "rgba(46, 230, 166, 0.2)",
   } as const;
 
-  const textColor = statusColorMap[overallHealth.status] || "#71858C";
-  const bgColor = statusBgMap[overallHealth.status] || "rgba(113, 133, 140, 0.2)";
+  const textColor = statusColorMap[overallHealth?.status] || "#71858C";
+  const bgColor = statusBgMap[overallHealth?.status] || "rgba(113, 133, 140, 0.2)";
 
   // Circle configuration
   const radius = 110;

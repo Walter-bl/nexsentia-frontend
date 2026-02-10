@@ -31,10 +31,7 @@ export default function MetricsDisplay({ metrics }: MetricsDisplayProps) {
 
   return (
     <div className="w-full max-w-[700px] mx-auto">
-      {/* Grid Logic: 
-         - Stacked (1 col) on mobile/very narrow views
-         - 2 Columns fixed for the 700px drawer width
-      */}
+    
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         {metrics.map((metric) => {
           const isExcellent = metric.status === "excellent";
