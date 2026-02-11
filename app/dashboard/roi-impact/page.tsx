@@ -180,7 +180,7 @@ export default function Page() {
         <div className="grid grid-cols-2 lg:col-span-2 gap-4">
           <div className="flex flex-col p-6 rounded-xl border border-[#33AD8C] bg-[#469F8845]">
             <span className="text-[25px] font-[700] text-[#8AF1B9] mb-1">{apiData.roi.multiple.toFixed(1)}x</span>
-            <p className="text-[16px] text-[#D2DCE5] font-normal">ROI Multiple</p>
+            <p className="text-[16px] text-[#D2DCE5] font-normal">Avg. Hours Saved Per Problem</p>
           </div>
           <div className="flex flex-col p-6 rounded-xl border border-[#33AD8C] bg-[#469F8845]">
             <span className="text-[25px] font-[700] text-[#8AF1B9] mb-1">{apiData.issuesPrevented}</span>
@@ -232,7 +232,7 @@ export default function Page() {
         />
       </div>
 
-      <SuccessBanner />
+      {/* <SuccessBanner /> */}
     </div>
   );
 }

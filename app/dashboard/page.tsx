@@ -3,31 +3,31 @@
 import { Card } from "@/components/ui/Card";
 import { CircularScore } from "@/components/widgets/CircularScore";
 import { CardHeader } from "@/components/widgets/CardHeader";
-import { Pill } from "@/components/ui/Pill";
-import { TrendingDown, TrendingUp } from "lucide-react";
+
 import { ALERT_ICON, CHAT_ICON, STRAIG_ALIGN } from "@/utils/icons";
 import { StrategicAlignmentCard } from "@/components/widgets/StrategicAlignmentCard";
 import Signals from "@/components/widgets/Signals";
 import PerformanceDim from "@/components/widgets/PerformanceDim";
 import BarChart from "@/components/widgets/BarChart";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { kpiService, TimeRange } from "@/services/dashboard";
 import HealthCounts from "@/components/widgets/HealthCounts";
 import CategoryCardsSlider from "@/components/widgets/CategoryCardsSlider";
-import { Header } from "@/components/widgets/Header";
 import { useAuth } from "@/context/AuthContext";
 
 export default function DashboardPage() {
   const [loading, setLoading] = useState(true);
-  const [timeRange, setTimeRange] = useState<TimeRange>("1m");
   const [data, setData] = useState<any>(null);
 
   
   const {filter, setFilter}=useAuth()
  
 
- useEffect(() => {
-  let isInitialLoad = true;
+const didFetch = useRef(false);
+
+useEffect(() => {
+  if (didFetch.current) return;
+  didFetch.current = true;
 
   const fetchData = async () => {
     try {
@@ -36,10 +36,7 @@ export default function DashboardPage() {
     } catch (err) {
       console.error("Failed to load KPI data", err);
     } finally {
-      if (isInitialLoad) {
-        setLoading(false); // only stop loading on first fetch
-        isInitialLoad = false;
-      }
+      setLoading(false);
     }
   };
 

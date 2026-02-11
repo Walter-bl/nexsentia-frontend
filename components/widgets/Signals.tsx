@@ -17,7 +17,7 @@ type SignalsProps = {
 
 const Signals = ({ signalDistribution }: SignalsProps) => {
   const maxSignals = Math.max(
-    ...signalDistribution.map((item) => item.signalCount),
+    ...signalDistribution?.map((item) => item?.signalCount),
     1
   );
 
@@ -30,9 +30,9 @@ const Signals = ({ signalDistribution }: SignalsProps) => {
       />
 
       <div className="flex flex-col gap-5 mt-[15px]">
-      {signalDistribution.map((item) => {
+      {signalDistribution?.map((item) => {
   const achieved = maxSignals > 0 
-    ? Math.round((item.signalCount / maxSignals) * 100) 
+    ? Math.round((item?.signalCount / maxSignals) * 100) 
     : 0;
 
   return (
@@ -53,10 +53,10 @@ const Signals = ({ signalDistribution }: SignalsProps) => {
       </div>
 
       <OverlapSlider
-        total={item.totalCount}
+        total={item?.totalCount}
         achieved={achieved}
         trackColor="rgba(129, 129, 165, 0.2)" // Slight transparency for a more modern look
-        fillColor={item.color}
+        fillColor={item?.color}
       />
     </div>
   );

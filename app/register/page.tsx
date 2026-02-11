@@ -41,16 +41,18 @@ const handleRegister = async (values: Record<string, string>) => {
 
 
   return (
-    <div className="min-h-screen relative  bg-[#081d1b]  text-white flex flex-col lg:flex-row items-center justify-center p-6 lg:p-24 gap-12">
-      <div className="flex absolute left-0 top-0 py-[60px] px-2 bg-black items-center gap-3 mb-[50px] ">
-        <div className="flex items-center gap-2">
-          {LOGO}
-          <p className=" font-poppins text-[33.275px] font-[500] leading-[23px] text-[#EFF2FE] sm:block">
-            NexSentia
-          </p>
-        </div>
-      </div>
+    <div className="min-h-screen relative  bg-[#081d1b]  text-white flex flex-col lg:flex-row  p-6 lg:p-24 gap-12">
+     
       <div className="flex-1 max-w-xl space-y-6">
+           <div className="flex items-center gap-3 mb-[50px]">
+          <div className="flex items-center gap-4">
+            {/* Logo */}
+            {LOGO}
+            <p className="font-poppins text-[33px] font-[700] leading-[23px] text-[#EFF2FE] sm:block">
+              NexSentia
+            </p>
+          </div>
+        </div>
         <h1 className="text-5xl text-[#EFF2FE] lg:text-[64px] font-normal leading-tight">
           Understand your <br />
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#1EB389] to-[#0BA9C5]">

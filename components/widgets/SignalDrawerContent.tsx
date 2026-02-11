@@ -1,10 +1,33 @@
 "use client";
 
-import React from "react";
-import { Sparkles } from "lucide-react";
+import React, { useState } from "react";
+import { Sparkles, ArrowLeft } from "lucide-react";
 import { ARROW_BUTTON, FILE } from "@/utils/icons";
+import { Chatbot } from "./Chatbot";
 
 export const SignalDrawerContent = () => {
+  const [showChatbot, setShowChatbot] = useState(false);
+
+  if (showChatbot) {
+    return (
+      <div className="h-full flex flex-col">
+        {/* Back button */}
+        <button
+          onClick={() => setShowChatbot(false)}
+          className="flex  items-center gap-2 px-4 py-3 text-[#71858C] hover:text-white transition-colors mb-4"
+        >
+          <ArrowLeft size={18} />
+          <span className="text-sm">Back to Signal Details</span>
+        </button>
+
+        {/* Chatbot takes full height */}
+        <div className="flex-1 min-h-0">
+          <Chatbot onClose={() => setShowChatbot(false)} />
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="space-y-10">
       {/* Sections */}
@@ -49,18 +72,21 @@ export const SignalDrawerContent = () => {
 
       {/* Bottom Actions */}
       <div className="mt-12 space-y-4">
-        <button className="w-full py-2 rounded-[10px] bg-gradient-to-r from-[#02996E] to-[#0895AE] text-white font-semibold flex items-center justify-center gap-2 hover:brightness-110 active:scale-[0.98] transition-all">
+        <button
+          onClick={() => setShowChatbot(true)}
+          className="w-full cursor-pointer py-2 rounded-[10px] bg-gradient-to-r from-[#02996E] to-[#0895AE] text-white font-semibold flex items-center justify-center gap-2 hover:brightness-110 active:scale-[0.98] transition-all"
+        >
           <Sparkles size={18} /> AI Agent
         </button>
 
-        <div className="grid grid-cols-2 gap-3">
+        {/* <div className="grid grid-cols-2 gap-3">
           <button className=" text-[#71858C] flex items-center justify-center gap-2 py-2 bg-[#EFF2FE] hover:bg-white/10 rounded-xl text-xs font-medium transition-colors border border-white/5">
             {ARROW_BUTTON} Go to Timeline
           </button>
           <button className="flex text-[#71858C] items-center justify-center gap-2 py-2 bg-[#EFF2FE] hover:bg-white/10 rounded-xl text-xs font-medium transition-colors border border-white/5">
             {FILE} Generate Summary
           </button>
-        </div>
+        </div> */}
       </div>
     </div>
   );

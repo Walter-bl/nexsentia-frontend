@@ -21,5 +21,7 @@ export interface UserIntegrations {
   serviceNowConnected: boolean;
   slackConnected: boolean;
   teamsConnected: boolean;
+  gmailConnected:boolean,
+  outlookConnected:boolean,
 }
 

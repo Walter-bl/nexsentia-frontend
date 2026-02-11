@@ -22,7 +22,7 @@ interface BarChartProps {
 
 export default function BarChart({ chartData }: BarChartProps) {
   // Convert month string "YYYY-MM" to readable month like "Jan"
-  const monthLabels = chartData.map((item) => {
+  const monthLabels = chartData?.map((item) => {
     const date = new Date(item.month + "-01");
     return date.toLocaleString("default", { month: "short" });
   });
@@ -31,19 +31,19 @@ export default function BarChart({ chartData }: BarChartProps) {
   const series = [
     {
       name: "Critical",
-      data: chartData.map((item) => item.bySeverity?.critical || 0),
+      data: chartData?.map((item) => item.bySeverity?.critical || 0),
     },
     {
       name: "High",
-      data: chartData.map((item) => item.bySeverity?.high || 0),
+      data: chartData?.map((item) => item.bySeverity?.high || 0),
     },
     {
       name: "Medium",
-      data: chartData.map((item) => item.bySeverity?.medium || 0),
+      data: chartData?.map((item) => item.bySeverity?.medium || 0),
     },
     {
       name: "Low",
-      data: chartData.map((item) => item.bySeverity?.low || 0),
+      data: chartData?.map((item) => item.bySeverity?.low || 0),
     },
   ];
 

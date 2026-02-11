@@ -36,20 +36,20 @@ const PerformanceDim: React.FC<any> = ({ teamSignals }) => {
       </div>
 
       {/* Radar chart for first team (you can make dynamic later) */}
-      <PerformanceRadar metrics={teamSignals.byMetric || []} />
+      <PerformanceRadar metrics={teamSignals?.byMetric || []} />
 
       {/* Divider */}
       <div className="h-[1px] bg-[#1A2A2A] w-full mb-8" />
 
       {/* Stats Grid */}
       <div className="grid grid-cols-2 md:grid-cols-3 gap-y-8 gap-x-4 text-center">
-        {teamSignals.byMetric.map((metric: any) => (
+        {teamSignals?.byMetric?.map((metric: any) => (
           <div key={metric.key} className="flex flex-col items-center">
             <span className="text-[15px] font-medium text-[#EFF2FE] mb-1">
               {metric?.value?.toFixed(2)}
             </span>
             <span className="text-[#71858C] text-[12px] font-normal leading-tight">
-              {metric.name}
+              {metric?.name}
             </span>
           </div>
         ))}

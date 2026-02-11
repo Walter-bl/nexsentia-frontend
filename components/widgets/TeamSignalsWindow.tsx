@@ -6,7 +6,6 @@ const TeamSignalsWindow = ({ teamSignals }:any) => {
 
 
 
-  console.log(' teamSignals[activeTab]?.metrics ====',teamSignals[0]?.metrics )
 
   if (!teamSignals || teamSignals.length === 0) return null;
 

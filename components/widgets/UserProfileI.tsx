@@ -10,32 +10,46 @@ const UserProfile = () => {
   // Helper to get initials
   const initials = `${user?.firstName?.charAt(0) || ""}${user?.lastName?.charAt(0) || ""}`.toUpperCase() || "??";
 
-  const integrations = [
-    {
-      name: "Jira",
-      description: "Atlassian Jira",
-      logo: "/jira.png",
-      isConnected: user?.integrations?.jiraConnected,
-    },
-    {
-      name: "ServiceNow",
-      description: "ServiceNow CSM",
-      logo: "/servicenow.png",
-      isConnected: user?.integrations?.serviceNowConnected,
-    },
-    {
-      name: "Slack",
-      description: "Communication Platform",
-      logo: "/slack.png",
-      isConnected: user?.integrations?.slackConnected,
-    },
-    {
-      name: "Microsoft Teams",
-      description: "Collaboration Tool",
-      logo: "/teams.png",
-      isConnected: user?.integrations?.teamsConnected,
-    },
-  ];
+const integrations = [
+  {
+    name: "Jira",
+    description: "Issue tracking",
+    logo: "/jira.png",
+    isConnected: user?.integrations?.jiraConnected,
+  },
+  {
+    name: "ServiceNow",
+    description: "IT service management",
+    logo: "/servicenow.png",
+    isConnected: user?.integrations?.serviceNowConnected,
+  },
+  {
+    name: "Slack",
+    description: "Team messaging",
+    logo: "/slack.png",
+    isConnected: user?.integrations?.slackConnected,
+  },
+  {
+    name: "Microsoft Teams",
+    description: "Team collaboration",
+    logo: "/teams.png",
+    isConnected: user?.integrations?.teamsConnected,
+  },
+  {
+    name: "Gmail",
+    description: "Email service",
+    logo: "/gmail.png",
+    isConnected: user?.integrations?.gmailConnected,
+  },
+  {
+    name: "Outlook",
+    description: "Email & calendar",
+    logo: "/outlook.png",
+    isConnected: user?.integrations?.outlookConnected,
+  },
+];
+
+
 
   return (
     <div className="text-slate-300 font-sans mx-auto relative max-w-[700px] pb-10">

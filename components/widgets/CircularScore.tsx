@@ -35,7 +35,7 @@ export const CircularScore = ({ overallHealth }: Props) => {
   const radius = 110;
   const strokeWidth = 15;
   const circumference = 2 * Math.PI * radius;
-  const score = overallHealth.score;
+  const score = overallHealth?.score;
 
   return (
     <div className="relative flex flex-col items-center justify-center">
@@ -77,7 +77,7 @@ export const CircularScore = ({ overallHealth }: Props) => {
             Health Score
           </span>
           <Pill
-            text={`+${overallHealth.totalMetrics} ${overallHealth.status}`}
+            text={`+${overallHealth?.totalMetrics} ${overallHealth?.status}`}
             icon={<TrendingUp size={12} />}
             textColor={textColor} // Set dynamically
             bgColor={bgColor} 
