@@ -1,12 +1,12 @@
-/* Chatbot Markdown Styling */
+/* Chatbot Markdown Styling - Modern ChatGPT/Claude Style */
 
 .message-content {
-  font-size: 14px;
-  line-height: 1.6;
-  color: #D2DCE5;
+  font-size: 15px;
+  line-height: 1.7;
+  color: #d1dce3;
 }
 
-/* Remove default prose margins to control spacing ourselves */
+/* Remove default prose margins */
 .message-content > *:first-child {
   margin-top: 0 !important;
 }
@@ -18,31 +18,35 @@
 /* Headings */
 .message-content h1,
 .message-content h2,
-.message-content h3 {
+.message-content h3,
+.message-content h4 {
   font-weight: 600;
-  line-height: 1.3;
-  margin-top: 1em;
-  margin-bottom: 0.5em;
+  line-height: 1.4;
+  color: #ffffff;
 }
 
 .message-content h1 {
   font-size: 1.25rem;
-  color: #ffffff;
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
 }
 
 .message-content h2 {
   font-size: 1.125rem;
-  color: #ffffff;
+  margin-top: 1.25rem;
+  margin-bottom: 0.5rem;
 }
 
 .message-content h3 {
   font-size: 1rem;
-  color: #8AF1B9;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
 }
 
 /* Paragraphs */
 .message-content p {
-  margin-bottom: 0.75rem;
+  margin-bottom: 1rem;
+  line-height: 1.75;
 }
 
 .message-content p:last-child {
@@ -52,14 +56,19 @@
 /* Lists */
 .message-content ul,
 .message-content ol {
-  margin: 0.75rem 0;
-  padding-left: 1.5rem;
+  margin: 1rem 0;
+  padding-left: 0;
+  list-style: none;
+}
+
+.message-content ol {
+  counter-reset: list-counter;
 }
 
 .message-content ul li,
 .message-content ol li {
   margin-bottom: 0.5rem;
-  padding-left: 0.25rem;
+  line-height: 1.75;
 }
 
 .message-content ul li:last-child,
@@ -74,56 +83,55 @@
 .message-content ol ol {
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
+  padding-left: 1.5rem;
 }
 
 /* Links */
 .message-content a {
-  color: #469F88;
+  color: #7dd3c0;
   text-decoration: underline;
-  text-underline-offset: 2px;
+  text-underline-offset: 3px;
   transition: color 0.2s;
 }
 
 .message-content a:hover {
-  color: #5AB99E;
+  color: #a3e4d7;
 }
 
 /* Code blocks */
 .message-content pre {
-  background-color: #0D1D23;
-  border: 1px solid rgba(70, 159, 136, 0.3);
-  border-radius: 8px;
-  padding: 1rem;
-  margin: 0.75rem 0;
+  background-color: #0a1214;
+  border-radius: 12px;
+  margin: 1rem 0;
   overflow-x: auto;
 }
 
 .message-content pre code {
   background-color: transparent;
-  color: #8AF1B9;
+  color: #e2e8f0;
   font-size: 0.875rem;
-  font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+  font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', Consolas, 'Liberation Mono', monospace;
   padding: 0;
   border-radius: 0;
+  line-height: 1.6;
 }
 
 /* Inline code */
 .message-content code {
-  background-color: #0D1D23;
-  color: #8AF1B9;
-  padding: 0.2em 0.4em;
-  border-radius: 4px;
+  background-color: #1a2e38;
+  color: #7dd3c0;
+  padding: 0.15em 0.4em;
+  border-radius: 6px;
   font-size: 0.875em;
-  font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+  font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', Consolas, 'Liberation Mono', monospace;
 }
 
 /* Blockquotes */
 .message-content blockquote {
-  border-left: 4px solid #469F88;
-  background-color: rgba(70, 159, 136, 0.1);
-  padding: 0.75rem 1rem;
-  margin: 0.75rem 0;
-  border-radius: 0 8px 8px 0;
+  border-left: 2px solid #469F88;
+  padding: 0.25rem 0 0.25rem 1rem;
+  margin: 1rem 0;
+  color: #9babb5;
 }
 
 .message-content blockquote p {
@@ -138,29 +146,28 @@
 .message-content table {
   width: 100%;
   border-collapse: collapse;
-  margin: 0.75rem 0;
+  margin: 1rem 0;
   font-size: 0.875rem;
-  border: 1px solid #1E3A47;
-  border-radius: 8px;
-  overflow: hidden;
 }
 
 .message-content thead {
-  background-color: #1E3A47;
+  background-color: #0f1a1e;
 }
 
 .message-content th {
   padding: 0.75rem 1rem;
   text-align: left;
   font-weight: 600;
-  color: #8AF1B9;
-  font-size: 0.875rem;
-  border-bottom: 1px solid rgba(70, 159, 136, 0.3);
+  color: #b8c5cc;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-bottom: 1px solid #1a2e38;
 }
 
 .message-content td {
   padding: 0.75rem 1rem;
-  border-bottom: 1px solid #1E3A47;
+  border-bottom: 1px solid #1a2e38;
 }
 
 .message-content tbody tr:last-child td {
@@ -168,7 +175,7 @@
 }
 
 .message-content tbody tr:hover {
-  background-color: rgba(70, 159, 136, 0.05);
+  background-color: rgba(15, 26, 30, 0.5);
 }
 
 /* Strong/Bold */
@@ -180,35 +187,14 @@
 /* Emphasis/Italic */
 .message-content em {
   font-style: italic;
-  color: #D2DCE5;
+  color: #b8c5cc;
 }
 
 /* Horizontal rule */
 .message-content hr {
   border: none;
-  border-top: 1px solid #1E3A47;
-  margin: 1rem 0;
-}
-
-/* Emoji spacing */
-.message-content img.emoji {
-  display: inline;
-  height: 1.2em;
-  width: 1.2em;
-  margin: 0 0.05em 0 0.1em;
-  vertical-align: -0.1em;
-}
-
-/* Responsive table */
-@media (max-width: 640px) {
-  .message-content table {
-    font-size: 0.75rem;
-  }
-
-  .message-content th,
-  .message-content td {
-    padding: 0.5rem;
-  }
+  border-top: 1px solid #1a2e38;
+  margin: 1.5rem 0;
 }
 
 /* Scrollbar for code blocks */
@@ -217,29 +203,39 @@
 }
 
 .message-content pre::-webkit-scrollbar-track {
-  background: rgba(30, 58, 71, 0.5);
-  border-radius: 4px;
+  background: transparent;
 }
 
 .message-content pre::-webkit-scrollbar-thumb {
-  background: #469F88;
+  background: #2a4a58;
   border-radius: 4px;
 }
 
 .message-content pre::-webkit-scrollbar-thumb:hover {
-  background: #5AB99E;
+  background: #3a5a68;
 }
 
-/* Smooth animations */
-.message-content * {
-  animation: fadeIn 0.2s ease-in;
+/* Selection highlight */
+.message-content ::selection {
+  background: rgba(70, 159, 136, 0.3);
 }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
+/* Responsive adjustments */
+@media (max-width: 640px) {
+  .message-content {
+    font-size: 14px;
   }
-  to {
-    opacity: 1;
+
+  .message-content table {
+    font-size: 0.75rem;
+  }
+
+  .message-content th,
+  .message-content td {
+    padding: 0.5rem;
+  }
+
+  .message-content pre {
+    border-radius: 8px;
   }
 }
