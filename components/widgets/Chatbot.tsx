@@ -10,12 +10,32 @@ interface ChatbotProps {
   onClose?: () => void;
 }
 
+const STATUS_MESSAGES = [
+  { text: 'Thinking', icon: '🧠' },
+  { text: 'Analyzing', icon: '🔍' },
+  { text: 'Processing', icon: '⚙️' },
+  { text: 'Generating', icon: '✨' },
+];
+
 export const Chatbot: React.FC<ChatbotProps> = ({ onClose }) => {
   const [input, setInput] = useState('');
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
+  const [statusIndex, setStatusIndex] = useState(0);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const { messages, isLoading, isStreaming, error, sendMessage, clearMessages } = useChatbot();
+
+  // Cycle through status messages while loading/streaming
+  useEffect(() => {
+    if (isLoading || isStreaming) {
+      const interval = setInterval(() => {
+        setStatusIndex((prev) => (prev + 1) % STATUS_MESSAGES.length);
+      }, 2000);
+      return () => clearInterval(interval);
+    } else {
+      setStatusIndex(0);
+    }
+  }, [isLoading, isStreaming]);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -183,10 +203,22 @@ export const Chatbot: React.FC<ChatbotProps> = ({ onClose }) => {
 
                     <div className="text-[#d1dce3] text-[15px] leading-relaxed">
                       {msg.role === 'assistant' ? (
-                        <MessageContent
-                          content={msg.content}
-                          isStreaming={isStreaming && idx === messages.length - 1}
-                        />
+                        <>
+                          <MessageContent
+                            content={msg.content}
+                            isStreaming={isStreaming && idx === messages.length - 1}
+                          />
+                          {/* Streaming status indicator */}
+                          {isStreaming && idx === messages.length - 1 && (
+                            <div className="flex items-center gap-2 mt-3 pt-3 border-t border-[#1a2e38]">
+                              <div className="w-4 h-4 rounded-full border-2 border-[#469F88] border-t-transparent animate-spin" />
+                              <span className="text-xs text-[#6b7f87]">
+                                <span className="mr-1">{STATUS_MESSAGES[statusIndex].icon}</span>
+                                {STATUS_MESSAGES[statusIndex].text}...
+                              </span>
+                            </div>
+                          )}
+                        </>
                       ) : (
                         <div className="whitespace-pre-wrap">{msg.content}</div>
                       )}
@@ -218,7 +250,7 @@ export const Chatbot: React.FC<ChatbotProps> = ({ onClose }) => {
               </div>
             ))}
 
-            {/* Loading indicator */}
+            {/* Thinking indicator - shown before streaming starts */}
             {isLoading && !isStreaming && (
               <div className="px-4 py-5 bg-[#0d181c]">
                 <div className="max-w-3xl mx-auto flex gap-4">
@@ -233,10 +265,16 @@ export const Chatbot: React.FC<ChatbotProps> = ({ onClose }) => {
                     <div className="flex items-center gap-2 mb-1.5">
                       <span className="text-sm font-medium text-white">NexSentia AI</span>
                     </div>
-                    <div className="flex items-center gap-1.5 text-[#6b7f87]">
-                      <div className="w-2 h-2 rounded-full bg-[#469F88] animate-pulse" />
-                      <div className="w-2 h-2 rounded-full bg-[#469F88] animate-pulse" style={{ animationDelay: '150ms' }} />
-                      <div className="w-2 h-2 rounded-full bg-[#469F88] animate-pulse" style={{ animationDelay: '300ms' }} />
+                    <div className="flex items-center gap-2">
+                      <div className="flex items-center gap-1">
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#469F88] animate-bounce" style={{ animationDuration: '0.6s' }} />
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#469F88] animate-bounce" style={{ animationDuration: '0.6s', animationDelay: '0.15s' }} />
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#469F88] animate-bounce" style={{ animationDuration: '0.6s', animationDelay: '0.3s' }} />
+                      </div>
+                      <span className="text-sm text-[#6b7f87]">
+                        <span className="mr-1">{STATUS_MESSAGES[statusIndex].icon}</span>
+                        {STATUS_MESSAGES[statusIndex].text}...
+                      </span>
                     </div>
                   </div>
                 </div>
