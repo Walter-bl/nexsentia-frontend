@@ -232,7 +232,6 @@ export const StrategicAlignmentCard = ({
 
   const visibleItems = items.slice(0, visibleCount);
   const hasMore = visibleCount < items.length;
-console.log('filteredSignals ====',filteredSignals)
   return (
     <Card>
       <CardHeader

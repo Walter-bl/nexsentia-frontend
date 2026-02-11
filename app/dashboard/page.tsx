@@ -22,12 +22,11 @@ export default function DashboardPage() {
   
   const {filter, setFilter}=useAuth()
  
-
 const didFetch = useRef(false);
 
 useEffect(() => {
-  if (didFetch.current) return;
-  didFetch.current = true;
+  // if (didFetch.current) return;
+  // didFetch.current = true;
 
   const fetchData = async () => {
     try {
