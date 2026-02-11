@@ -8,10 +8,15 @@ export const useChatbot = () => {
   const [isStreaming, setIsStreaming] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const streamingMessageRef = useRef<string>('');
+  const isProcessingRef = useRef(false);
 
   const sendMessage = useCallback(
     async (message: string, useStreaming = true) => {
       if (!message.trim()) return;
+
+      // Prevent duplicate submissions
+      if (isProcessingRef.current) return;
+      isProcessingRef.current = true;
 
       // Add user message
       const userMessage: ChatMessage = {
@@ -25,7 +30,6 @@ export const useChatbot = () => {
 
       if (useStreaming) {
         // Use streaming
-        setIsStreaming(true);
         streamingMessageRef.current = '';
 
         // Add empty assistant message that will be filled
@@ -38,6 +42,9 @@ export const useChatbot = () => {
           },
         ]);
 
+        // Set streaming after adding the message
+        setIsStreaming(true);
+
         await chatbotService.sendMessageStream(
           message,
           // onToken
@@ -45,8 +52,10 @@ export const useChatbot = () => {
             streamingMessageRef.current += token;
             setMessages((prev) => {
               const newMessages = [...prev];
-              newMessages[newMessages.length - 1].content =
-                streamingMessageRef.current;
+              if (newMessages.length > 0) {
+                newMessages[newMessages.length - 1].content =
+                  streamingMessageRef.current;
+              }
               return newMessages;
             });
           },
@@ -59,18 +68,26 @@ export const useChatbot = () => {
           () => {
             setIsLoading(false);
             setIsStreaming(false);
+            isProcessingRef.current = false;
           },
           // onError
           (err: Error) => {
             setError(err.message);
             setIsLoading(false);
             setIsStreaming(false);
+            isProcessingRef.current = false;
             // Remove the empty assistant message
             setMessages((prev) => prev.slice(0, -1));
           },
           sessionId || undefined,
           messages
         );
+
+        // Safety fallback - reset states after await completes
+        // This handles edge cases where callbacks might not fire
+        setIsLoading(false);
+        setIsStreaming(false);
+        isProcessingRef.current = false;
       } else {
         // Use REST API (fallback)
         try {
@@ -92,6 +109,7 @@ export const useChatbot = () => {
           setMessages((prev) => prev.slice(0, -1));
         } finally {
           setIsLoading(false);
+          isProcessingRef.current = false;
         }
       }
     },
@@ -102,6 +120,7 @@ export const useChatbot = () => {
     setMessages([]);
     setSessionId(null);
     setError(null);
+    isProcessingRef.current = false;
   }, []);
 
   return {
