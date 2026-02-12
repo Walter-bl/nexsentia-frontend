@@ -20,13 +20,14 @@ const TimelineEventDetails = ({ eventId }: { eventId: string | null }) => {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    setError(null)
     const fetchEvent = async () => {
       try {
         setLoading(true);
         const response = await timelineService.getTimelineDetail(eventId);
         setData(response);
-      } catch (err) {
-        setError("Could not retrieve timeline event.");
+      } catch (err:any) {
+        setError(err?.data.message ||"Could not retrieve timeline event.");
       } finally {
         setLoading(false);
       }
