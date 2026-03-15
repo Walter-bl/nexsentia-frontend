@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useAuth } from "@/context/AuthContext";
 import { toast } from "react-hot-toast";
 import AuthCard from "@/components/widgets/AuthCard";
-import { LOGO } from "@/utils/icons";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 
  const Page=()=> {
@@ -36,7 +36,7 @@ const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
         <div className="flex items-center gap-3 mb-[50px]">
           <div className="flex items-center gap-4">
             {/* Logo */}
-            {LOGO}
+            <Image src="/logo.png" alt="NexSentia Logo" width={40} height={40} />
             <p className="font-poppins text-[33px] font-[700] leading-[23px] text-[#EFF2FE] sm:block">
               NexSentia
             </p>

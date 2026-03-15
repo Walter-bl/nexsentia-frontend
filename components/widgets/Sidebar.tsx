@@ -1,7 +1,7 @@
 "use client";
 
 import { useAuth } from "@/context/AuthContext";
-import { LOGO } from "@/utils/icons";
+import Image from "next/image";
 import {
   Shield,
   AlertCircle,
@@ -60,7 +60,7 @@ export const Sidebar = ({ isOpen, setIsOpen }: SidebarProps) => {
       >
         {/* Logo */}
         <div className="mb-4 flex gap-2 items-center p-6 border-b border-[#1A2A2A]">
-          {LOGO}
+          <Image src="/logo.png" alt="NexSentia Logo" width={32} height={32} />
           <p className="mt-1 font-poppins text-[15.275px] font-bold leading-[23px] text-[#EFF2FE]">
             NexSentia
           </p>
