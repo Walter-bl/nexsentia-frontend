@@ -1,11 +1,9 @@
 export const LOGO=    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
-<circle cx="16" cy="16" r="15.5" stroke="#3B6264"/>
-<circle cx="16" cy="16" r="10.5" stroke="#3B6264"/>
-<circle cx="16" cy="16" r="6" fill="#0BBCA1"/>
-<line x1="0.5" y1="-0.5" x2="4.91567" y2="-0.5" transform="matrix(0.729656 0.683814 -0.704461 0.709743 4.28906 5.65625)" stroke="#3B6264" stroke-linecap="round"/>
-<line x1="0.5" y1="-0.5" x2="4.91567" y2="-0.5" transform="matrix(0.729656 0.683814 -0.704461 0.709743 24 23)" stroke="#3B6264" stroke-linecap="round"/>
-<line x1="0.5" y1="-0.5" x2="4.91567" y2="-0.5" transform="matrix(-0.721395 0.692523 -0.671547 -0.740962 27.2578 4.92188)" stroke="#3B6264" stroke-linecap="round"/>
-<line x1="0.5" y1="-0.5" x2="4.91567" y2="-0.5" transform="matrix(-0.721395 0.692523 -0.671547 -0.740962 8.89062 23.6875)" stroke="#3B6264" stroke-linecap="round"/>
+<circle cx="16" cy="16" r="14" stroke="#1A7A6D" strokeWidth="2.5" fill="none"/>
+<circle cx="16" cy="16" r="8.5" fill="#2DD4A8"/>
+<circle cx="16" cy="16" r="3.5" fill="white"/>
+<circle cx="14" cy="3.5" r="2" fill="#F5A623"/>
+<circle cx="25" cy="20" r="1.8" fill="#1A5C54"/>
 </svg>
 
 export const AIAGENT=<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">

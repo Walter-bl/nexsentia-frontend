@@ -33,7 +33,7 @@ echo "==> Configuring Nginx for frontend..."
 sudo tee /etc/nginx/conf.d/nexsentia-frontend.conf > /dev/null <<'NGINX'
 server {
     listen 80;
-    server_name nexsentia.com www.nexsentia.com app.nexsentia.com;
+    server_name app.nexsentia.com;
 
     client_max_body_size 50M;
 
@@ -57,12 +57,10 @@ sudo nginx -t && sudo systemctl reload nginx
 
 # --- 4. SSL for frontend domains ---
 echo "==> Obtaining SSL certificate for frontend..."
-sudo certbot --nginx -d nexsentia.com -d www.nexsentia.com -d app.nexsentia.com --non-interactive --agree-tos -m "${EMAIL}" || {
-  echo "    SSL failed — make sure DNS A records point to this server:"
-  echo "      nexsentia.com     -> $(curl -s ifconfig.me)"
-  echo "      www.nexsentia.com -> $(curl -s ifconfig.me)"
+sudo certbot --nginx -d app.nexsentia.com --non-interactive --agree-tos -m "${EMAIL}" || {
+  echo "    SSL failed — make sure DNS A record points to this server:"
   echo "      app.nexsentia.com -> $(curl -s ifconfig.me)"
-  echo "    Then run: sudo certbot --nginx -d nexsentia.com -d www.nexsentia.com -d app.nexsentia.com --non-interactive --agree-tos -m ${EMAIL}"
+  echo "    Then run: sudo certbot --nginx -d app.nexsentia.com --non-interactive --agree-tos -m ${EMAIL}"
 }
 
 # --- 5. Start PM2 ---
