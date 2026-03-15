@@ -1,7 +1,7 @@
 "use client";
 
 import  { useState } from "react";
-import { LOGO } from "@/utils/icons";
+import Image from "next/image";
 
 import AuthCard from "@/components/widgets/AuthCard";
 import { useAuth } from "@/context/AuthContext";
@@ -47,7 +47,7 @@ const handleRegister = async (values: Record<string, string>) => {
            <div className="flex items-center gap-3 mb-[50px]">
           <div className="flex items-center gap-4">
             {/* Logo */}
-            {LOGO}
+            <Image src="/logo.png" alt="NexSentia Logo" width={40} height={40} />
             <p className="font-poppins text-[33px] font-[700] leading-[23px] text-[#EFF2FE] sm:block">
               NexSentia
             </p>
